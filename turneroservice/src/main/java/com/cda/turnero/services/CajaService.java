@@ -10,11 +10,9 @@ import org.springframework.stereotype.Service;
 
 import com.cda.turnero.dao.CajaDao;
 import com.cda.turnero.dao.SucursalDao;
-import com.cda.turnero.dao.TurnoCajaDao;
 import com.cda.turnero.dao.TurnoDao;
 import com.cda.turnero.model.Recepcion;
 import com.cda.turnero.model.CodigoQr;
-import com.cda.turnero.model.TurnoCaja;
 import com.cda.turnero.model.TurnoCliente;
 
 @Service
@@ -34,8 +32,6 @@ public class CajaService {
 	@Autowired
 	TurnoDao turnoDao;
 	
-	@Autowired
-	TurnoCajaDao turnoCajaDao;
 	
 	public List<Recepcion> getCajas() {
 		return cajaDao.findAll();
@@ -120,7 +116,7 @@ public class CajaService {
 	}
 	
 	
-	public String asignarCaja(Integer codigoQr_id, Integer tipoCaja_id, Integer sucursal_id) {
+	/*public String asignarCaja(Integer codigoQr_id, Integer tipoCaja_id, Integer sucursal_id) {
 		if(verificarCodigoQr(codigoQr_id)) {			
 			Long personasCaja = 0L;
 			Recepcion cajaAsignada = null;
@@ -141,7 +137,7 @@ public class CajaService {
 			return "Te asignamos la caja " + cajaAsignada.getCajaId();
 		}
 		return "El turno tiene una fecha y horario diferentes al horario actual";
-	}
+	}*/
 
 	public CodigoQr deshabilitarQr(Integer idQr) {
 		CodigoQr codigoQr = codigoQrService.getById(idQr);

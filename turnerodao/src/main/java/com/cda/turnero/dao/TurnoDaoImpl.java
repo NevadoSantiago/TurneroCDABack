@@ -12,7 +12,6 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import com.cda.turnero.model.Turno;
-import com.cda.turnero.model.TurnoCaja;
 import com.cda.turnero.model.TurnoCliente;
 
 @Repository
@@ -42,12 +41,12 @@ public class TurnoDaoImpl {
     	
 	}
         
-    public Long countTurnoCajaInCaja(Integer cajaId) {
+    /*public Long countTurnoCajaInCaja(Integer cajaId) {
     	CriteriaBuilder qb = entityManager.getCriteriaBuilder();
     	CriteriaQuery<Long> cq = qb.createQuery(Long.class);
     	Root<TurnoCaja> turno = cq.from(TurnoCaja.class);
     	cq.select(qb.count(cq.from(TurnoCliente.class)));
     	cq.where(qb.equal(turno.get("caja"), cajaId));
     	return entityManager.createQuery(cq).getSingleResult();
-    }
+    }*/
 }

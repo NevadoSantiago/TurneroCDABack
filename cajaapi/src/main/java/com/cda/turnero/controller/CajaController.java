@@ -25,11 +25,11 @@ public class CajaController {
 	
 	
 	
-	@PostMapping("/asignar/{QR}/{TipoCaja}/{SucursalId}")
+	/*@PostMapping("/asignar/{QR}/{TipoCaja}/{SucursalId}")
 	public ResponseEntity<?> asignarCaja(@PathVariable("QR") int QR,@PathVariable ("TipoCaja") int tipoCajaId,@PathVariable ("SucursalId") int sucursal_Id  ){
 		return new ResponseEntity<>(cajaService.asignarCaja(QR, tipoCajaId,sucursal_Id),HttpStatus.OK);
 		
-	}
+	}*/
 	
 	@PostMapping("/iniciar/{QR}")
 	public ResponseEntity<?> iniciarTransaccion(@PathVariable("QR") String QR){
