@@ -10,12 +10,12 @@ import org.springframework.data.repository.query.Param;
 import com.cda.turnero.model.Localidad;
 
 import com.cda.turnero.model.Sucursal;
-import com.cda.turnero.model.Tienda;
+import com.cda.turnero.model.Clinica;
 
 public interface SucursalDao extends JpaRepository<Sucursal, Integer>{
 
-	List<Sucursal> findSucursalesByTienda(Tienda tienda);
-	List<Sucursal> findSucursalesByTiendaAndLocalidad(Tienda tienda, Localidad localidad);
+	List<Sucursal> findSucursalesByClinica(Clinica clinica);
+	List<Sucursal> findSucursalesByClinicaAndLocalidad(Clinica clinica, Localidad localidad);
 
 
 }

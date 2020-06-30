@@ -16,8 +16,8 @@ import com.cda.turnero.model.CaracteristicaSucursal;
 import com.cda.turnero.model.Localidad;
 
 import com.cda.turnero.model.Sucursal;
-import com.cda.turnero.model.Tienda;
-import com.cda.turnero.model.TipoTurno;
+import com.cda.turnero.model.Clinica;
+import com.cda.turnero.model.Especialidad;
 
 @Service
 public class SucursalService {
@@ -64,9 +64,9 @@ public class SucursalService {
 		return sucursal.getCaracteristica();	
 	}
 	
-	public List<TipoTurno> getAllTipoTurnoBySucursal(Integer sucursalId)  {
+	public List<Especialidad> getAllTipoTurnoBySucursal(Integer sucursalId)  {
 		Sucursal sucursal = findSucursalById(sucursalId);
-		List<TipoTurno> tipoTurno = new ArrayList<TipoTurno>();
+		List<Especialidad> tipoTurno = new ArrayList<Especialidad>();
 		sucTipoTurnodao.findAllBySucursal(sucursal).forEach( rel -> {
 			tipoTurno.add(rel.getTipoTurno());
 		});
@@ -74,16 +74,16 @@ public class SucursalService {
 	}
 	
 	public List<Sucursal> getSucursalesByTienda(Integer id) {
-		Tienda tienda = tiendaDao.findById(id).get();
-		return sucursalDaoImp.findSucursalesByTienda(tienda);
+		Clinica tienda = tiendaDao.findById(id).get();
+		return sucursalDaoImp.findSucursalesByClinica(tienda);
 	}
 	
 	public List<Sucursal> getSucursalesByTiendaAndLocalidad(Integer tiendaId, Integer localidadId) {
 
-		Tienda tienda = tiendaDao.findById(tiendaId).get();
+		Clinica clinica = tiendaDao.findById(tiendaId).get();
 		Localidad localidad = localidadDao.findById(localidadId).get();
 
-		return sucursalDaoImp.findSucursalesByTiendaAndLocalidad(tienda, localidad);
+		return sucursalDaoImp.findSucursalesByClinicaAndLocalidad(clinica, localidad);
 
 	}
 	

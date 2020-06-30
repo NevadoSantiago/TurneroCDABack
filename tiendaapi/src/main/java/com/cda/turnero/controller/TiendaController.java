@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cda.turnero.model.Pais;
 import com.cda.turnero.model.Sucursal;
-import com.cda.turnero.model.Tienda;
+import com.cda.turnero.model.Clinica;
 import com.cda.turnero.services.SucursalService;
 import com.cda.turnero.services.TiendaService;
 import com.cda.turnero.services.UbicacionService;
@@ -44,7 +44,7 @@ public class TiendaController {
 		
 		
 		try {
-			List<Tienda> listadoTiendas = tiendaService.getAllTienda();
+			List<Clinica> listadoTiendas = tiendaService.getAllTienda();
 			
 			return new ResponseEntity<>(listadoTiendas, HttpStatus.OK);
 			

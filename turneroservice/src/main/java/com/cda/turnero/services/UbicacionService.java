@@ -16,7 +16,7 @@ import com.cda.turnero.model.Localidad;
 import com.cda.turnero.model.Pais;
 import com.cda.turnero.model.Provincia;
 import com.cda.turnero.model.Sucursal;
-import com.cda.turnero.model.Tienda;
+import com.cda.turnero.model.Clinica;
 import com.cda.turnero.model.TiendaPais;
 
 @Service
@@ -45,7 +45,7 @@ public class UbicacionService {
 
 	// TODO: Lore
 	public List<Pais> getAllPaisByTienda(Integer tiendaId) {
-		List<TiendaPais> TiendaPais = tiendapais.findAllByTienda(tiendaId);
+		List<TiendaPais> TiendaPais = tiendapais.findAllByClinica(tiendaId);
 		List<Pais> result = new ArrayList<Pais>();
 
 		for (TiendaPais tiendaPais : TiendaPais) {

@@ -14,7 +14,7 @@ import com.cda.turnero.dao.ProvinciaDao;
 import com.cda.turnero.dao.SucursalDao;
 import com.cda.turnero.dao.TiendaDao;
 import com.cda.turnero.model.Pais;
-import com.cda.turnero.model.Tienda;
+import com.cda.turnero.model.Clinica;
 
 
 @Service
@@ -36,12 +36,12 @@ public class TiendaService {
 	SucursalDao sucursalDao;
 	
 	// TODO: Yaco
-	public List<Tienda> getAllTienda(){
-		List<Tienda> result = tiendaDao.findAll();
+	public List<Clinica> getAllTienda(){
+		List<Clinica> result = tiendaDao.findAll();
 		return result;
 	}
 	
-	public Optional<Tienda> findTiendaById(Integer tiendaId) {
+	public Optional<Clinica> findTiendaById(Integer tiendaId) {
 		return tiendaDao.findById(tiendaId);
 		
 			
@@ -54,9 +54,9 @@ public class TiendaService {
 		return ubicacionService.getProvinciaByTienda(tiendaId);
 	}
 
-	public Tienda registrarNuevaTienda(String nombreTienda, MultipartFile imagen) throws IOException {
+	public Clinica registrarNuevaTienda(String nombreTienda, MultipartFile imagen) throws IOException {
 		byte[] bytes = imagen.getBytes();
-		Tienda tienda = new Tienda();
+		Clinica tienda = new Clinica();
 		tienda.setNombre(nombreTienda);
 		tienda.setImagenMuestra(bytes);
 		tienda.setHabilitada(true);
@@ -65,7 +65,7 @@ public class TiendaService {
 	}
 
 	public byte[] getImagenTienda(Integer tiendaId) {
-		Tienda tienda = tiendaDao.findById(tiendaId).get();
+		Clinica tienda = tiendaDao.findById(tiendaId).get();
 		return tienda.getImagenMuestra();
 	}
 

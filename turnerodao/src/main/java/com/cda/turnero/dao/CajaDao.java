@@ -4,12 +4,12 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.cda.turnero.model.Caja;
+import com.cda.turnero.model.Recepcion;
 
-public interface CajaDao extends JpaRepository<Caja, Integer>{
+public interface CajaDao extends JpaRepository<Recepcion, Integer>{
 
-	List<Caja> getCajasByTipoCaja(Integer tipoCajaId);
-	List<Caja> getCajasBySucursal(Integer sucursalId);
-	List<Caja> getCajasByEstado(boolean estado);
+	List<Recepcion> getCajasByTipoCaja(Integer tipoCajaId);
+	List<Recepcion> getCajasBySucursal(Integer sucursalId);
+	List<Recepcion> getCajasByEstado(boolean estado);
 	
 }

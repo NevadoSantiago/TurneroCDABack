@@ -27,8 +27,8 @@ public class Turno {
 	private Integer idModificador;
 	
 	@OneToOne
-	@JoinColumn(name = "tipo_turno_id", nullable = true)
-	private TipoTurno tipoTurno;
+	@JoinColumn(name = "especialidad_id", nullable = true)
+	private Especialidad especialidad;
 	
 	@OneToOne
 	@JoinColumn(name = "sucursal_id", nullable = false)
@@ -97,12 +97,12 @@ public class Turno {
 		this.idModificador = idModificador;
 	}	
 
-	public TipoTurno getTipoTurno() {
-		return tipoTurno;
+	public Especialidad getTipoTurno() {
+		return especialidad;
 	}
 
-	public void setTipoTurno(TipoTurno tipoTurno) {
-		this.tipoTurno = tipoTurno;
+	public void setTipoTurno(Especialidad tipoTurno) {
+		this.especialidad = tipoTurno;
 	}
 
 	public EstadoTurno getEstado() {

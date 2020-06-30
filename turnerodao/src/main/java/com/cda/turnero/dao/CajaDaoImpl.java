@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 
 import org.springframework.stereotype.Repository;
 
-import com.cda.turnero.model.Caja;
+import com.cda.turnero.model.Recepcion;
 
 @Repository
 public class CajaDaoImpl{
@@ -19,39 +19,39 @@ public class CajaDaoImpl{
 	@PersistenceContext	
 	private EntityManager entityManager;
 		    
-    public List<Caja> getCajasByTipoCaja(Integer tipoCajaId) {
+    public List<Recepcion> getCajasByTipoCaja(Integer tipoCajaId) {
     	
     	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-        CriteriaQuery<Caja> criteriaQuery = criteriaBuilder.createQuery(Caja.class);
-        Root<Caja> caja = criteriaQuery.from(Caja.class); 
-        TypedQuery<Caja> query = entityManager.createQuery(criteriaQuery.select(caja).where(criteriaBuilder.equal
+        CriteriaQuery<Recepcion> criteriaQuery = criteriaBuilder.createQuery(Recepcion.class);
+        Root<Recepcion> caja = criteriaQuery.from(Recepcion.class); 
+        TypedQuery<Recepcion> query = entityManager.createQuery(criteriaQuery.select(caja).where(criteriaBuilder.equal
         		(caja.get("tipoCaja").get("tipoCajaId"), tipoCajaId)));
         
         return query.getResultList();
         
     }
     
-    public List<Caja> getCajasBySucursal(Integer sucursalId) {
+    public List<Recepcion> getCajasBySucursal(Integer sucursalId) {
     	
     	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-        CriteriaQuery<Caja> criteriaQuery = criteriaBuilder.createQuery(Caja.class);
-        Root<Caja> caja = criteriaQuery.from(Caja.class); 
-        TypedQuery<Caja> query = entityManager.createQuery(criteriaQuery.select(caja).where(criteriaBuilder.equal
+        CriteriaQuery<Recepcion> criteriaQuery = criteriaBuilder.createQuery(Recepcion.class);
+        Root<Recepcion> caja = criteriaQuery.from(Recepcion.class); 
+        TypedQuery<Recepcion> query = entityManager.createQuery(criteriaQuery.select(caja).where(criteriaBuilder.equal
         		(caja.get("sucursal").get("sucursalId"), sucursalId)));
         
         return query.getResultList();
     	
     }
     
-    public List<Caja> getCajasByEstado(boolean estado) {
+    public List<Recepcion> getCajasByEstado(boolean estado) {
     	
     	CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
-        CriteriaQuery<Caja> criteriaQuery = criteriaBuilder.createQuery(Caja.class);
-        Root<Caja> caja = criteriaQuery.from(Caja.class); 
-        TypedQuery<Caja> query = entityManager.createQuery(criteriaQuery.select(caja).where(criteriaBuilder.equal
+        CriteriaQuery<Recepcion> criteriaQuery = criteriaBuilder.createQuery(Recepcion.class);
+        Root<Recepcion> caja = criteriaQuery.from(Recepcion.class); 
+        TypedQuery<Recepcion> query = entityManager.createQuery(criteriaQuery.select(caja).where(criteriaBuilder.equal
         		(caja.get("activa"), estado)));
         
         return query.getResultList();

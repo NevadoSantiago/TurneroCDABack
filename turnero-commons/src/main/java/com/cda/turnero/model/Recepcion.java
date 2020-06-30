@@ -10,10 +10,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Caja {
+public class Recepcion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer cajaId;
+	private Integer recepcionId;
 
 	private Date fechaAlta;
 
@@ -23,16 +23,13 @@ public class Caja {
 	
 	private Boolean activa;
 	
-	@ManyToOne
-	@JoinColumn(name = "tipo_caja_id", nullable = false)
-	private TipoCaja tipoCaja;
 	
 	@ManyToOne
 	@JoinColumn(name = "sucursal_id", nullable = false)
 	private Sucursal sucursal;
 	
 	public Integer getCajaId() {
-		return cajaId;
+		return recepcionId;
 	}
 
 	public Sucursal getSucursal() {
@@ -44,7 +41,7 @@ public class Caja {
 	}
 
 	public void setCajaId(Integer cajaId) {
-		this.cajaId = cajaId;
+		this.recepcionId = cajaId;
 	}
 
 	public Date getFechaAlta() {
@@ -79,11 +76,4 @@ public class Caja {
 		this.activa = activa;
 	}
 
-	public TipoCaja getTipoCaja() {
-		return tipoCaja;
-	}
-
-	public void setTipoCaja(TipoCaja tipoCaja) {
-		this.tipoCaja = tipoCaja;
-	}
 }

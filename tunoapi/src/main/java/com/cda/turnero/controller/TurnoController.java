@@ -24,7 +24,7 @@ import com.cda.turnero.dto.TurnoDisponibleDto;
 import com.cda.turnero.model.Cliente;
 import com.cda.turnero.model.CodigoQr;
 import com.cda.turnero.model.Pais;
-import com.cda.turnero.model.Tienda;
+import com.cda.turnero.model.Clinica;
 import com.cda.turnero.model.Turno;
 import com.cda.turnero.model.TurnoCliente;
 import com.cda.turnero.services.CodigoQrService;

@@ -15,8 +15,8 @@ public class TiendaPais {
 	private Integer tiendaPaisId;
 	
 	@ManyToOne
-	@JoinColumn(name = "id_tienda")
-	private Tienda tienda;
+	@JoinColumn(name = "id_clinica")
+	private Clinica clinica;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_pais")
@@ -30,12 +30,12 @@ public class TiendaPais {
 		this.tiendaPaisId = tiendaPaisId;
 	}
 
-	public Tienda getTienda() {
-		return tienda;
+	public Clinica getTienda() {
+		return clinica;
 	}
 
-	public void setTienda(Tienda tienda) {
-		this.tienda = tienda;
+	public void setTienda(Clinica tienda) {
+		this.clinica = tienda;
 	}
 
 	public Pais getPais() {

@@ -14,7 +14,7 @@ import javax.persistence.Lob;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Tienda {
+public class Clinica {
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

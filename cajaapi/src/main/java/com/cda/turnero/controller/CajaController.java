@@ -25,11 +25,11 @@ public class CajaController {
 	
 	
 	
-	@PostMapping("/asignar/{QR}/{TipoCaja}/{SucursalId}")
+	/*@PostMapping("/asignar/{QR}/{TipoCaja}/{SucursalId}")
 	public ResponseEntity<?> asignarCaja(@PathVariable("QR") int QR,@PathVariable ("TipoCaja") int tipoCajaId,@PathVariable ("SucursalId") int sucursal_Id  ){
 		return new ResponseEntity<>(cajaService.asignarCaja(QR, tipoCajaId,sucursal_Id),HttpStatus.OK);
 		
-	}
+	}*/
 	
 	@PostMapping("/iniciar/{QR}")
 	public ResponseEntity<?> iniciarTransaccion(@PathVariable("QR") String QR){
@@ -81,10 +81,6 @@ public class CajaController {
 		return new ResponseEntity<>(cajaService.getCajasBySucursal(idSucursal), HttpStatus.OK);
 	}
 	
-	@PostMapping("/agregarTipoCaja/{detalle}")
-	public ResponseEntity<?> crearTipoDeCaja(@PathVariable("detalle") String detalle){
-		return new ResponseEntity<>(cajaService.crearTipoDeCaja(detalle), HttpStatus.OK);
-	}
 	
 	@GetMapping("/cajasPorEstado/{estado}")
 	public ResponseEntity<?> verCajasPorEstado(@PathVariable("estado") Boolean estado){
