@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 public class Recepcion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer cajaId;
+	private Integer recepcionId;
 
 	private Date fechaAlta;
 
@@ -29,7 +29,7 @@ public class Recepcion {
 	private Sucursal sucursal;
 	
 	public Integer getCajaId() {
-		return cajaId;
+		return recepcionId;
 	}
 
 	public Sucursal getSucursal() {
@@ -41,7 +41,7 @@ public class Recepcion {
 	}
 
 	public void setCajaId(Integer cajaId) {
-		this.cajaId = cajaId;
+		this.recepcionId = cajaId;
 	}
 
 	public Date getFechaAlta() {

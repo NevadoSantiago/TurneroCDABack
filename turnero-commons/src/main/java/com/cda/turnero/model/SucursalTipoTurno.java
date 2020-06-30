@@ -20,8 +20,8 @@ public class SucursalTipoTurno {
 		private Sucursal sucursal;
 		
 		@ManyToOne
-		@JoinColumn(name = "id_tipoTurno")
-		private TipoTurno tipoTurno;
+		@JoinColumn(name = "id_especialidad")
+		private Especialidad especialidad;
 
 		public Integer getSucursalTipoTurno() {
 			return sucursalTipoTurno;
@@ -39,12 +39,12 @@ public class SucursalTipoTurno {
 			this.sucursal = sucursal;
 		}
 
-		public TipoTurno getTipoTurno() {
-			return tipoTurno;
+		public Especialidad getTipoTurno() {
+			return especialidad;
 		}
 
-		public void setTipoTurno(TipoTurno tipoTurno) {
-			this.tipoTurno = tipoTurno;
+		public void setTipoTurno(Especialidad tipoTurno) {
+			this.especialidad = tipoTurno;
 		}
 
 		

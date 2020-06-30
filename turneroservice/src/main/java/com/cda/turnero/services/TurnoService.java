@@ -25,7 +25,7 @@ import com.cda.turnero.model.CaracteristicaSucursal;
 import com.cda.turnero.model.Cliente;
 import com.cda.turnero.model.CodigoQr;
 import com.cda.turnero.model.Sucursal;
-import com.cda.turnero.model.TipoTurno;
+import com.cda.turnero.model.Especialidad;
 import com.cda.turnero.model.Turno;
 import com.cda.turnero.model.TurnoCliente;
 import com.cda.turnero.utils.DateUtil;
@@ -171,7 +171,7 @@ public class TurnoService {
 		DetalleTurnoDto dt = new DetalleTurnoDto();
 		Turno turno = tc.getTurno();
 		Sucursal sucursal = turno.getSucursal();
-		TipoTurno tipoTurno = turno.getTipoTurno();
+		Especialidad tipoTurno = turno.getTipoTurno();
 
 		dt.setTiendaId(sucursal.getTienda().getTiendaId());
 		dt.setCodigoSeguimiento("Por ahora vacio");
@@ -245,7 +245,7 @@ public class TurnoService {
 
 			calFrom.setTime(fechaDesde);
 			// TODO: ver como repartir los tipos de turnos
-			TipoTurno tipoTurno = tipoTurnoDao.findById(1).get();
+			Especialidad tipoTurno = tipoTurnoDao.findById(1).get();
 			for (int dia = 0; dia < cantidadDias; dia++) {
 				int hora = horaApertura;
 				calFrom.set(Calendar.HOUR_OF_DAY, horaApertura);

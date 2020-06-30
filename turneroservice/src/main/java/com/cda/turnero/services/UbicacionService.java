@@ -16,7 +16,7 @@ import com.cda.turnero.model.Localidad;
 import com.cda.turnero.model.Pais;
 import com.cda.turnero.model.Provincia;
 import com.cda.turnero.model.Sucursal;
-import com.cda.turnero.model.Tienda;
+import com.cda.turnero.model.Clinica;
 import com.cda.turnero.model.TiendaPais;
 
 @Service

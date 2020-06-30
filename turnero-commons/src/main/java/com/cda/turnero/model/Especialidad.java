@@ -6,9 +6,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class TipoTurno {
+public class Especialidad {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer tipoTurnoId;
@@ -21,7 +24,11 @@ public class TipoTurno {
 	
 	private Integer duracion;
 	
-	private Date fechaModificacion;	
+	private Date fechaModificacion;
+	
+	@OneToMany
+	@JoinColumn (name = "sucursal_id")
+	private Sucursal sucursal;
 
 	public Integer getTipoTurnoId() {
 		return tipoTurnoId;
