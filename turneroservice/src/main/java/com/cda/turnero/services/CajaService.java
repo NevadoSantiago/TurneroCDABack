@@ -10,12 +10,10 @@ import org.springframework.stereotype.Service;
 
 import com.cda.turnero.dao.CajaDao;
 import com.cda.turnero.dao.SucursalDao;
-import com.cda.turnero.dao.TipoCajaDao;
 import com.cda.turnero.dao.TurnoCajaDao;
 import com.cda.turnero.dao.TurnoDao;
-import com.cda.turnero.model.Caja;
+import com.cda.turnero.model.Recepcion;
 import com.cda.turnero.model.CodigoQr;
-import com.cda.turnero.model.TipoCaja;
 import com.cda.turnero.model.TurnoCaja;
 import com.cda.turnero.model.TurnoCliente;
 
@@ -29,9 +27,6 @@ public class CajaService {
 	CajaDao cajaDao;
 	
 	@Autowired
-	TipoCajaDao tipoCajaDao;
-	
-	@Autowired
 	SucursalDao sucursalDao;
 	@Autowired
 	CodigoQrService codigoQrService;
@@ -42,38 +37,36 @@ public class CajaService {
 	@Autowired
 	TurnoCajaDao turnoCajaDao;
 	
-	// TODO: Legui
-	public List<Caja> getCajas() {
+	public List<Recepcion> getCajas() {
 		return cajaDao.findAll();
 	}
 	
-	public Caja agregarCaja(Integer tipoCajaId, Integer sucursalId) {
+	public Recepcion agregarCaja(Integer tipoCajaId, Integer sucursalId) {
 		Date date = new Date();
-		Caja caja = new Caja();
+		Recepcion caja = new Recepcion();
 		caja.setFechaAlta(date);
-		caja.setTipoCaja(tipoCajaDao.findById(tipoCajaId).get());
 		caja.setSucursal(sucursalDao.findById(sucursalId).get());
 		
 		return cajaDao.save(caja);
 	}
 	
 	
-	public Caja getCajaById(Integer cajaId) {
+	public Recepcion getCajaById(Integer cajaId) {
 		return cajaDao.findById(cajaId).get();
 	}
 	
-	public Caja habilitarCaja(Integer cajaId) {
+	public Recepcion habilitarCaja(Integer cajaId) {
 
-		Caja caja = cajaDao.findById(cajaId).get();
+		Recepcion caja = cajaDao.findById(cajaId).get();
 		caja.setActiva(true);
 		
 		return cajaDao.save(caja);
 		
 	}
 
-	public Caja deshabilitarCaja(Integer cajaId) {
+	public Recepcion deshabilitarCaja(Integer cajaId) {
 
-		Caja caja = cajaDao.findById(cajaId).get();
+		Recepcion caja = cajaDao.findById(cajaId).get();
 		caja.setActiva(false);
 		
 		return cajaDao.save(caja);
@@ -81,26 +74,17 @@ public class CajaService {
 	}
 
 	// list
-	public List<Caja> getCajasByTipoCaja(Integer tipoCajaId) {
+	public List<Recepcion> getCajasByTipoCaja(Integer tipoCajaId) {
 		return cajaDao.getCajasByTipoCaja(tipoCajaId);
 	}
 	
 	// list
-	public List<Caja> getCajasBySucursal(Integer sucursalId) {
+	public List<Recepcion> getCajasBySucursal(Integer sucursalId) {
 		return cajaDao.getCajasBySucursal(sucursalId);
 	}
 	
-	public TipoCaja crearTipoDeCaja(String detalle) {
-		Date date = new Date();
-		
-		TipoCaja tipoCaja = new TipoCaja();
-		tipoCaja.setDetalle(detalle);
-		tipoCaja.setFechaAlta(date);
-		
-		return tipoCajaDao.save(tipoCaja);
-	}
 	
-	public List<Caja> getCajasByEstado(boolean estado){
+	public List<Recepcion> getCajasByEstado(boolean estado){
 		return cajaDao.getCajasByEstado(estado);
 	}
 
@@ -139,8 +123,8 @@ public class CajaService {
 	public String asignarCaja(Integer codigoQr_id, Integer tipoCaja_id, Integer sucursal_id) {
 		if(verificarCodigoQr(codigoQr_id)) {			
 			Long personasCaja = 0L;
-			Caja cajaAsignada = null;
-			for (Caja caja : cajaDao.getCajasBySucursal(sucursal_id)) {
+			Recepcion cajaAsignada = null;
+			for (Recepcion caja : cajaDao.getCajasBySucursal(sucursal_id)) {
 				Long cantidad = turnoDao.countTurnoCajaInCaja(caja.getCajaId());
 				if (cajaAsignada == null || cantidad < personasCaja) {
 					personasCaja = cantidad;	

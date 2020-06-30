@@ -81,10 +81,6 @@ public class CajaController {
 		return new ResponseEntity<>(cajaService.getCajasBySucursal(idSucursal), HttpStatus.OK);
 	}
 	
-	@PostMapping("/agregarTipoCaja/{detalle}")
-	public ResponseEntity<?> crearTipoDeCaja(@PathVariable("detalle") String detalle){
-		return new ResponseEntity<>(cajaService.crearTipoDeCaja(detalle), HttpStatus.OK);
-	}
 	
 	@GetMapping("/cajasPorEstado/{estado}")
 	public ResponseEntity<?> verCajasPorEstado(@PathVariable("estado") Boolean estado){

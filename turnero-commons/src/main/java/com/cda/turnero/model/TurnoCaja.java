@@ -20,7 +20,7 @@ public class TurnoCaja {
 	private TurnoCliente turno;
 	@ManyToOne
 	@JoinColumn (name = "caja_id")
-	private Caja caja;
+	private Recepcion caja;
 	private Date fechaDeIngreso;
 	private Date fechaDeEgreso;
 	private Date fechaAlta;
@@ -57,10 +57,10 @@ public class TurnoCaja {
 	public void setTurno(TurnoCliente turno) {
 		this.turno = turno;
 	}
-	public Caja getCaja() {
+	public Recepcion getCaja() {
 		return caja;
 	}
-	public void setCaja(Caja caja) {
+	public void setCaja(Recepcion caja) {
 		this.caja = caja;
 	}
 	
