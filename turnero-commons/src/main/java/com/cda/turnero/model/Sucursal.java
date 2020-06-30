@@ -27,8 +27,8 @@ public class Sucursal {
 	private Date modificacion;
 	
 	@ManyToOne
-	@JoinColumn (name = "tienda_id")
-	private Clinica tienda;
+	@JoinColumn (name = "clinica_id")
+	private Clinica clinica;
 	
 	@ManyToOne
 	@JoinColumn (name = "tipo_sucursal_id")
@@ -97,10 +97,10 @@ public class Sucursal {
 		this.modificacion = modificacion;
 	}
 	public Clinica getTienda() {
-		return tienda;
+		return clinica;
 	}
 	public void setTienda(Clinica tienda) {
-		this.tienda = tienda;
+		this.clinica = tienda;
 	}		
 	
 //	modificador
