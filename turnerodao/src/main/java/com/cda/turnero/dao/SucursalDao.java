@@ -14,8 +14,8 @@ import com.cda.turnero.model.Clinica;
 
 public interface SucursalDao extends JpaRepository<Sucursal, Integer>{
 
-	List<Sucursal> findSucursalesByTienda(Clinica tienda);
-	List<Sucursal> findSucursalesByTiendaAndLocalidad(Clinica tienda, Localidad localidad);
+	List<Sucursal> findSucursalesByClinica(Clinica clinica);
+	List<Sucursal> findSucursalesByClinicaAndLocalidad(Clinica clinica, Localidad localidad);
 
 
 }

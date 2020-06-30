@@ -8,5 +8,5 @@ import com.cda.turnero.model.Clinica;
 import com.cda.turnero.model.TiendaPais;
 
 public interface TiendaPaisDao extends JpaRepository<TiendaPais, Integer> {
-	List<TiendaPais> findAllByTienda(Integer tiendaId);
+	List<TiendaPais> findAllByClinica(Integer clinicaId);
 }

@@ -75,15 +75,15 @@ public class SucursalService {
 	
 	public List<Sucursal> getSucursalesByTienda(Integer id) {
 		Clinica tienda = tiendaDao.findById(id).get();
-		return sucursalDaoImp.findSucursalesByTienda(tienda);
+		return sucursalDaoImp.findSucursalesByClinica(tienda);
 	}
 	
 	public List<Sucursal> getSucursalesByTiendaAndLocalidad(Integer tiendaId, Integer localidadId) {
 
-		Clinica tienda = tiendaDao.findById(tiendaId).get();
+		Clinica clinica = tiendaDao.findById(tiendaId).get();
 		Localidad localidad = localidadDao.findById(localidadId).get();
 
-		return sucursalDaoImp.findSucursalesByTiendaAndLocalidad(tienda, localidad);
+		return sucursalDaoImp.findSucursalesByClinicaAndLocalidad(clinica, localidad);
 
 	}
 	

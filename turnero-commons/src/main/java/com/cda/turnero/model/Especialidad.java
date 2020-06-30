@@ -26,7 +26,7 @@ public class Especialidad {
 	
 	private Date fechaModificacion;
 	
-	@OneToMany
+	@ManyToOne
 	@JoinColumn (name = "sucursal_id")
 	private Sucursal sucursal;
 

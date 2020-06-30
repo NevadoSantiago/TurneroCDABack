@@ -18,5 +18,4 @@ public interface TurnoDao extends JpaRepository<Turno, Integer>{
 	Turno turnoId(Integer turnoId);
 	TurnoCliente getTurnoClienteByQr(int qr);
 	
-	public Long countTurnoCajaInCaja(Integer cajaId);
 }

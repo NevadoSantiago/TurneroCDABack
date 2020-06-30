@@ -45,7 +45,7 @@ public class UbicacionService {
 
 	// TODO: Lore
 	public List<Pais> getAllPaisByTienda(Integer tiendaId) {
-		List<TiendaPais> TiendaPais = tiendapais.findAllByTienda(tiendaId);
+		List<TiendaPais> TiendaPais = tiendapais.findAllByClinica(tiendaId);
 		List<Pais> result = new ArrayList<Pais>();
 
 		for (TiendaPais tiendaPais : TiendaPais) {
