@@ -8,24 +8,42 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class TipoUsuario {
+public class Clinica {
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer tipoId;
+	private Integer clinicaId;
+	
+	private String nombre;
+	
+	private boolean habilitada;
 	
 	private Date fechaAlta;
 	
 	private Date fechaBaja;
-	
-	private String detalle;
 
-	public Integer getTipoId() {
-		return tipoId;
+	public Integer getClinicaId() {
+		return clinicaId;
 	}
 
-	public void setTipoId(Integer tipoId) {
-		this.tipoId = tipoId;
+	public void setClinicaId(Integer clinicaId) {
+		this.clinicaId = clinicaId;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public boolean isHabilitada() {
+		return habilitada;
+	}
+
+	public void setHabilitada(boolean habilitada) {
+		this.habilitada = habilitada;
 	}
 
 	public Date getFechaAlta() {
@@ -43,15 +61,7 @@ public class TipoUsuario {
 	public void setFechaBaja(Date fechaBaja) {
 		this.fechaBaja = fechaBaja;
 	}
-
-	public String getDetalle() {
-		return detalle;
-	}
-
-	public void setDetalle(String detalle) {
-		this.detalle = detalle;
-	}
-
+	
 	
 	
 }

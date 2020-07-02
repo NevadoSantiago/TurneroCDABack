@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cda.turnero.services.ClienteService;
+import com.cda.turnero.service.UsuarioService;
+
 
 
 @RequestMapping("/api/usuario")
@@ -16,10 +17,10 @@ import com.cda.turnero.services.ClienteService;
 public class UsuarioController {
 
 	@Autowired
-	ClienteService clienteService;
+	UsuarioService usuarioService;
 	
 	@PostMapping("/ingresar/{mail}")
 	public ResponseEntity<?> ingresoDeUsuario(@PathVariable("mail") String mail) {
-		return new ResponseEntity<>(clienteService.ingresoCliente(mail), HttpStatus.OK);	
+		return new ResponseEntity<>(usuarioService.ingresoUsuario(mail), HttpStatus.OK);	
 	}
 }

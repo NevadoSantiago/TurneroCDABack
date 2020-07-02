@@ -1,8 +1,6 @@
 package com.cda.turnero.model;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
+import javax.persistence.OneToOne;
 
 @Entity
 public class Sucursal {
@@ -19,90 +16,93 @@ public class Sucursal {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer sucursalId;
-
-	private String nombre;
+	
 	private String direccion;
-	private Date alta;
-	private Date baja;
-	private Date modificacion;
+	
+	private String nombre;
+	
+	private boolean habilitada;
+	
+	private Date fechaAlta;
+	
+	private Date fechaBaja;
+	
+	@OneToOne
+	@JoinColumn(name="configuracion_id")
+	private ConfiguracionSucursal configuracion;
 	
 	@ManyToOne
-	@JoinColumn (name = "tienda_id")
-	private Tienda tienda;
-	
-	@ManyToOne
-	@JoinColumn (name = "tipo_sucursal_id")
-	private TipoSucursal tipo;
-	
-	@ManyToOne
-	@JoinColumn (name = "caracteristica_sucursal_id")
-	private CaracteristicaSucursal caracteristica;
-	
-	@ManyToOne
-	@JoinColumn (name = "localidad_id")
-	private Localidad localidad;
-	
+	@JoinColumn(name="clinica_id")
+	private Clinica clinica;
+
+
+
 	public Integer getSucursalId() {
 		return sucursalId;
 	}
+
 	public void setSucursalId(Integer sucursalId) {
 		this.sucursalId = sucursalId;
 	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+
 	public String getDireccion() {
 		return direccion;
 	}
+
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
 	}
-	public TipoSucursal getTipo() {
-		return tipo;
+
+	public String getNombre() {
+		return nombre;
 	}
-	public void setTipo(TipoSucursal tipo) {
-		this.tipo = tipo;
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public CaracteristicaSucursal getCaracteristica() {
-		return caracteristica;
+
+	public boolean isHabilitada() {
+		return habilitada;
 	}
-	public void setCaracteristica(CaracteristicaSucursal caracteristica) {
-		this.caracteristica = caracteristica;
+
+	public void setHabilitada(boolean habilitada) {
+		this.habilitada = habilitada;
 	}
-	public Localidad getLocalidad() {
-		return localidad;
+
+	public Date getFechaAlta() {
+		return fechaAlta;
 	}
-	public void setLocalidad(Localidad localidad) {
-		this.localidad = localidad;
+
+	public void setFechaAlta(Date fechaAlta) {
+		this.fechaAlta = fechaAlta;
 	}
-	public Date getAlta() {
-		return alta;
+
+	public Date getFechaBaja() {
+		return fechaBaja;
 	}
-	public void setAlta(Date alta) {
-		this.alta = alta;
+
+	public void setFechaBaja(Date fechaBaja) {
+		this.fechaBaja = fechaBaja;
 	}
-	public Date getBaja() {
-		return baja;
+
+	public ConfiguracionSucursal getConfiguracion() {
+		return configuracion;
 	}
-	public void setBaja(Date baja) {
-		this.baja = baja;
+
+	public void setConfiguracion(ConfiguracionSucursal caracteristica) {
+		this.configuracion = caracteristica;
 	}
-	public Date getModificacion() {
-		return modificacion;
+
+	public Clinica getClinica() {
+		return clinica;
 	}
-	public void setModificacion(Date modificacion) {
-		this.modificacion = modificacion;
+
+	public void setClinica(Clinica clinica) {
+		this.clinica = clinica;
 	}
-	public Tienda getTienda() {
-		return tienda;
-	}
-	public void setTienda(Tienda tienda) {
-		this.tienda = tienda;
-	}		
 	
-//	modificador
 	
+	
+	
+
 }
