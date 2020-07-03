@@ -41,11 +41,25 @@ public class UsuarioService {
 		
 		return clienteLogueado;
 	}
+	public Cliente getClienteById(Integer idCliente) {
+		Optional<Cliente> cliente = clienteDaoImpl.findById(idCliente);
+		if(cliente.isEmpty()) {
+			return null;
+		}else return cliente.get();
+	}
 
 	private Cliente crearCliente(String mail) {
 		Cliente nuevoCliente = new Cliente();
 		nuevoCliente.setMail(mail);
 		return clienteDaoImpl.save(nuevoCliente);
+	}
+	public boolean existeReservaDeCliente(Integer idCliente) {
+		Cliente cliente = getClienteById(idCliente);
+		if(reservaService.getReservaByCliente(cliente)==null) {
+			return false;
+		}else {
+			return true;
+		}
 	}
 
 }

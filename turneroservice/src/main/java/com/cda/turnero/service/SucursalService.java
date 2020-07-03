@@ -38,5 +38,8 @@ public class SucursalService {
 	public List<Sucursal> getAllSucursales() {	
 		return sucursalDaoImpl.findAll();
 	}
+	public Sucursal getSucursalById(Integer idSucursal) {
+		return sucursalDaoImpl.findById(idSucursal).get();
+	}
 	
 }

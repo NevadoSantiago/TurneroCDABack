@@ -17,4 +17,7 @@ public class EspecialidadService {
 	public List<Especialidad> getAllEspecialidades(){
 		return especialidadDaoImpl.findAll();
 	}
+	public Especialidad getEspecialidadById(Integer id) {
+		return especialidadDaoImpl.findById(id).get();
+	}
 }
