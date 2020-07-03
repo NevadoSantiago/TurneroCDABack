@@ -37,6 +37,13 @@ public class SucursalController {
 		
 		return new ResponseEntity<>(sucursales, HttpStatus.OK);
 	}
+	@GetMapping
+	public ResponseEntity<?> getAllSucursales(){
+		
+		List<Sucursal> sucursales = sucursalService.getAllSucursales();
+		
+		return new ResponseEntity<>(sucursales, HttpStatus.OK);
+	}
 	
 
 	
