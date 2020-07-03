@@ -13,6 +13,11 @@ public class ClienteLogueadoDto {
 	public ClienteLogueadoDto() {
 		
 	}
+	public ClienteLogueadoDto(Cliente cliente) {
+		nombre = cliente.getNombre();
+		idCliente = cliente.getPersonaId();
+		detalleReserva = null;
+	}
 	
 	public ClienteLogueadoDto(Cliente cliente, Reserva reserva) {
 		nombre = cliente.getNombre();

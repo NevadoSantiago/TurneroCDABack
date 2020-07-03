@@ -31,8 +31,13 @@ public class UsuarioService {
 	}
 	
 	private ClienteLogueadoDto clienteLogueadoMapper(Cliente cliente, Reserva reserva) {
-
-		ClienteLogueadoDto clienteLogueado = new ClienteLogueadoDto(cliente,reserva);
+		ClienteLogueadoDto clienteLogueado;
+			if(reserva == null) {
+				clienteLogueado = new ClienteLogueadoDto(cliente);
+			}else {
+				clienteLogueado = new ClienteLogueadoDto(cliente,reserva);
+			}
+		
 		
 		return clienteLogueado;
 	}
