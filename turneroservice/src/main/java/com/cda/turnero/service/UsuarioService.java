@@ -29,7 +29,9 @@ public class UsuarioService {
 			return clienteLogueadoMapper(cliente.get(), reserva);
 		}
 	}
+	
 	private ClienteLogueadoDto clienteLogueadoMapper(Cliente cliente, Reserva reserva) {
+
 		ClienteLogueadoDto clienteLogueado = new ClienteLogueadoDto(cliente,reserva);
 		
 		return clienteLogueado;

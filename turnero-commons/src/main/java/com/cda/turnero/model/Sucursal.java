@@ -31,12 +31,7 @@ public class Sucursal {
 	@JoinColumn(name="configuracion_id")
 	private ConfiguracionSucursal configuracion;
 	
-	@ManyToOne
-	@JoinColumn(name="clinica_id")
-	private Clinica clinica;
-
-
-
+	
 	public Integer getSucursalId() {
 		return sucursalId;
 	}
@@ -92,15 +87,6 @@ public class Sucursal {
 	public void setConfiguracion(ConfiguracionSucursal caracteristica) {
 		this.configuracion = caracteristica;
 	}
-
-	public Clinica getClinica() {
-		return clinica;
-	}
-
-	public void setClinica(Clinica clinica) {
-		this.clinica = clinica;
-	}
-	
 	
 	
 	

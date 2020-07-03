@@ -5,34 +5,46 @@ import com.cda.turnero.model.Reserva;
 
 public class ClienteLogueadoDto {
 	
-	private Cliente cliente;
-	
-	private Reserva reserva;
-	
+	private String nombre;
+	private Integer idCliente;
+	private DetalleReservaDto detalleReserva;
+
+		
 	public ClienteLogueadoDto() {
 		
 	}
+	
 	public ClienteLogueadoDto(Cliente cliente, Reserva reserva) {
-		this.cliente = cliente;
-		this.reserva = reserva;
+		nombre = cliente.getNombre();
+		idCliente = cliente.getPersonaId();
+		detalleReserva = new DetalleReservaDto(reserva);
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 
-	public Reserva getReserva() {
-		return reserva;
+	public Integer getIdCliente() {
+		return idCliente;
 	}
 
-	public void setReserva(Reserva reserva) {
-		this.reserva = reserva;
+	public void setIdCliente(Integer idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public DetalleReservaDto getDetalleReserva() {
+		return detalleReserva;
+	}
+
+	public void setDetalleReserva(DetalleReservaDto detalleReserva) {
+		this.detalleReserva = detalleReserva;
 	}
 	
 	
+
 
 }

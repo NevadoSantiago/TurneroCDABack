@@ -9,6 +9,6 @@ import com.cda.turnero.model.Reserva;
 
 public interface ReservaDao extends JpaRepository<Reserva, Integer> {
 
-	Optional<Reserva> findByClienteLikeAndFechaSalidaNotNull(Cliente cliente);
+	Optional<Reserva> findByClienteLikeAndFechaSalidaIsNull(Cliente cliente);
 	
 }

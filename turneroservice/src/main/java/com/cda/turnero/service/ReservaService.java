@@ -16,7 +16,7 @@ public class ReservaService {
 	ReservaDao reservaDaoImpl;
 	
 	public Reserva getReservaByCliente(Cliente cliente) {
-		Optional<Reserva> reserva = reservaDaoImpl.findByClienteLikeAndFechaSalidaNotNull(cliente);
+		Optional<Reserva> reserva = reservaDaoImpl.findByClienteLikeAndFechaSalidaIsNull(cliente);
 		if(reserva.isEmpty()) {
 			return null;
 		}else return reserva.get();
