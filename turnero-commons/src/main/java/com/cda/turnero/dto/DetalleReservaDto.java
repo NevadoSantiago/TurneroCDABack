@@ -8,12 +8,16 @@ public class DetalleReservaDto {
 	private String direccion;
 	private String sintomas;
 	private Integer idReserva;
+	private String latitud;
+	private String longitud;
 	
 	public DetalleReservaDto(Reserva reserva) {
 		nombreSucursal = reserva.getSucursal().getNombre();
 		direccion = reserva.getSucursal().getDireccion();
 		sintomas = reserva.getDescSintomas();
 		idReserva = reserva.getReservaId();
+		latitud = reserva.getSucursal().getConfiguracion().getCordLatitud();
+		longitud =  reserva.getSucursal().getConfiguracion().getCordLongitud();
 	}
 
 	public String getNombreSucursal() {
@@ -46,6 +50,22 @@ public class DetalleReservaDto {
 
 	public void setIdReserva(Integer idReserva) {
 		this.idReserva = idReserva;
+	}
+
+	public String getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
 	}
 	
 	
