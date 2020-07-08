@@ -24,7 +24,7 @@ public class LocacionController {
 		return new ResponseEntity<>(locacionService.getAllPronvincias(), HttpStatus.OK);	
 	}
 	
-	@PostMapping("/localidad/{provinciaId}")
+	@GetMapping("/localidades/{provinciaId}")
 	public ResponseEntity<?> getLocalidadByProvincia(@PathVariable("provinciaId") Integer provinciaId) {
 		return new ResponseEntity<>(locacionService.getLocalidadByProvinciaId(provinciaId), HttpStatus.OK);	
 	}
