@@ -45,6 +45,13 @@ public class SucursalController {
 		return new ResponseEntity<>(sucursales, HttpStatus.OK);
 	}
 	
+	@GetMapping("/filtrar/cantidadPersonas")
+	public ResponseEntity<?> getSucursalesByReserva(){
+		
+		List<Object[]> SR = sucursalService.getSucursalesByReservas();
+		
+		return new ResponseEntity<>(SR, HttpStatus.OK);
+	}
 
 	
 
