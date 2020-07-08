@@ -7,11 +7,29 @@ import javax.persistence.Id;
 
 @Entity
 public class Provincia {
-	@Id 
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer provinciaId;
-	
-	private String detalle;
+
+	private String nombre;
+	private String latitud;
+	private String longitud;
+
+	public String getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
+	}
 
 	public Integer getProvinciaId() {
 		return provinciaId;
@@ -21,13 +39,12 @@ public class Provincia {
 		this.provinciaId = provinciaId;
 	}
 
-	public String getDetalle() {
-		return detalle;
+	public String getNombre() {
+		return nombre;
 	}
 
-	public void setDetalle(String detalle) {
-		this.detalle = detalle;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	
-	
+
 }

@@ -9,31 +9,54 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Localidad {
-	@Id 
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer localidadId;
-	private String detalle;
-	
+	private long localidadId;
+	private String nombre;
+	private String latitud;
+	private String longitud;
+
 	@ManyToOne
-	@JoinColumn (name = "provincia_id")
+	@JoinColumn(name = "provincia_id")
 	private Provincia provincia;
-			
-	public Integer getLocalidadId() {
+
+	public long getLocalidadId() {
 		return localidadId;
 	}
-	public void setLocalidadId(Integer localidadId) {
+
+	public void setLocalidadId(long localidadId) {
 		this.localidadId = localidadId;
 	}
+
 	public Provincia getProvincia() {
 		return provincia;
 	}
+
 	public void setProvincia(Provincia provincia) {
 		this.provincia = provincia;
 	}
-	public String getDetalle() {
-		return detalle;
+
+	public String getNombre() {
+		return nombre;
 	}
-	public void setDetalle(String detalle) {
-		this.detalle = detalle;
+
+	public void setNombre(String detalle) {
+		this.nombre = detalle;
+	}
+
+	public String getLatitud() {
+		return latitud;
+	}
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
 	}
 }
