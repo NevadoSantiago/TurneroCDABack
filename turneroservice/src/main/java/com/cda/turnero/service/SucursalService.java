@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.cda.turnero.dao.SucursalDao;
 import com.cda.turnero.dao.SucursalEspecialidadDao;
+import com.cda.turnero.dto.DetalleSucursalDto;
 import com.cda.turnero.model.EspecialidadSucursal;
 import com.cda.turnero.model.Sucursal;
 
@@ -41,7 +42,7 @@ public class SucursalService {
 	public Sucursal getSucursalById(Integer idSucursal) {
 		return sucursalDaoImpl.findById(idSucursal).get();
 	}
-	public List<Object[]> getSucursalesByReservas() {
+	public List<DetalleSucursalDto> getSucursalesByReservas() {
 		return sucursalDaoImpl.getSucursalesByReservas();
 	}
 	

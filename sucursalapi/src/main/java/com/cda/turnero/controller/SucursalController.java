@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cda.turnero.dto.DetalleSucursalDto;
 import com.cda.turnero.model.Sucursal;
 import com.cda.turnero.service.SucursalService;
 
@@ -48,7 +49,7 @@ public class SucursalController {
 	@GetMapping("/filtrar/cantidadPersonas")
 	public ResponseEntity<?> getSucursalesByReserva(){
 		
-		List<Object[]> SR = sucursalService.getSucursalesByReservas();
+		List<DetalleSucursalDto> SR = sucursalService.getSucursalesByReservas();
 		
 		return new ResponseEntity<>(SR, HttpStatus.OK);
 	}
