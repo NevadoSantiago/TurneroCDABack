@@ -42,8 +42,8 @@ public class SucursalService {
 	public Sucursal getSucursalById(Integer idSucursal) {
 		return sucursalDaoImpl.findById(idSucursal).get();
 	}
-	public List<DetalleSucursalDto> getSucursalesByReservas() {
-		return sucursalDaoImpl.getSucursalesByReservas();
+	public List<DetalleSucursalDto> getSucursalesByReservas(Integer idEspecialidad) {
+		return sucursalDaoImpl.getSucursalesByReservas(idEspecialidad);
 	}
 	
 }

@@ -46,10 +46,10 @@ public class SucursalController {
 		return new ResponseEntity<>(sucursales, HttpStatus.OK);
 	}
 	
-	@GetMapping("/filtrar/cantidadPersonas")
-	public ResponseEntity<?> getSucursalesByReserva(){
+	@GetMapping("/filtrar/cantidadPersonas/{idEspecialidad}")
+	public ResponseEntity<?> getSucursalesByReserva(@PathVariable("idEspecialidad") Integer idEspecialidad){
 		
-		List<DetalleSucursalDto> SR = sucursalService.getSucursalesByReservas();
+		List<DetalleSucursalDto> SR = sucursalService.getSucursalesByReservas(idEspecialidad);
 		
 		return new ResponseEntity<>(SR, HttpStatus.OK);
 	}
