@@ -45,5 +45,9 @@ public class ReservaController {
 		System.out.println(jobject + " " +  idUsuario);
 		return new ResponseEntity<>(reservaService.crearReserva(jobject, idUsuario), HttpStatus.OK);
 	}
+	@PostMapping("/cancelar/{idReserva}")
+	public ResponseEntity<?> cancelarReserva(@PathVariable Integer idReserva) {
+		return new ResponseEntity<>(reservaService.cancelarReserva(idReserva), HttpStatus.OK);
+	}
 
 }

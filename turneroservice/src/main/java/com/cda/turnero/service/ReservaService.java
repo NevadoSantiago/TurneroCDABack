@@ -5,8 +5,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cda.turnero.dao.EstadoReservaDao;
 import com.cda.turnero.dao.ReservaDao;
 import com.cda.turnero.model.Cliente;
+import com.cda.turnero.model.EstadoReserva;
 import com.cda.turnero.model.Reserva;
 import com.google.gson.JsonObject;
 
@@ -17,6 +19,9 @@ public class ReservaService {
 	ReservaDao reservaDaoImpl;
 	
 	@Autowired
+	EstadoReservaService estadoReservaService;
+	
+	@Autowired
 	UsuarioService usuarioService;
 	
 	@Autowired
@@ -25,8 +30,8 @@ public class ReservaService {
 	@Autowired
 	EspecialidadService especialidadService;
 	
-	public Reserva getReservaByCliente(Cliente cliente) {
-		Optional<Reserva> reserva = reservaDaoImpl.findByClienteLikeAndFechaSalidaIsNull(cliente);
+	public Reserva getReservaByClienteAndEstadoLike(Cliente cliente, EstadoReserva estado) {
+		Optional<Reserva> reserva = reservaDaoImpl.findByClienteLikeAndFechaSalidaIsNullAndEstadoLike(cliente,estado);
 		if(reserva.isEmpty()) {
 			return null;
 		}else return reserva.get();
@@ -50,5 +55,11 @@ public class ReservaService {
 			reservaDaoImpl.save(reserva);
 			return true;
 		}
+	}
+	public boolean cancelarReserva(Integer idReserva) {
+		Reserva reserva = reservaDaoImpl.findById(idReserva).get();		
+		reserva.setEstado(estadoReservaService.getEstadoCancelado());
+		reservaDaoImpl.save(reserva);
+		return true;
 	}
 }

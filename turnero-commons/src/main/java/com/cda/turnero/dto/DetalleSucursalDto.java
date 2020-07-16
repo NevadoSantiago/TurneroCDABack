@@ -8,6 +8,7 @@ public class DetalleSucursalDto {
 	private String nombre;
 	private String direccion;
 	private Long cantidadPersonas;
+	private double distanciaAPersona;
 	private ConfiguracionSucursal configuracion;
 	
 	public DetalleSucursalDto() {
@@ -46,6 +47,13 @@ public class DetalleSucursalDto {
 	}
 	public String getNombreSucursal() {
 		return nombre;
+	}
+	
+	public double getDistanciaAPersona() {
+		return distanciaAPersona;
+	}
+	public void setDistanciaAPersona(double distanciaAPersona) {
+		this.distanciaAPersona = distanciaAPersona;
 	}
 	public Integer getSucursalId() {
 		return sucursalId;
