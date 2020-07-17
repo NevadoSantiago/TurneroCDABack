@@ -76,11 +76,9 @@ public class ReservaService {
 	public byte[] getCodigoQrByReserva(Integer reservaId) {
 		Optional<Reserva> reserva = reservaDaoImpl.findById(reservaId);
 		if(reserva.isEmpty()) return null;
-		else {
-			
+		else {			
 			String codigoQr = reserva.get().getCodigoQr();
 			return codigoQrService.showQRCodeImage(codigoQr);
-		}
-		
+		}		
 	}
 }
