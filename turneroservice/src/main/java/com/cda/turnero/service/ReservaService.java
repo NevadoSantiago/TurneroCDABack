@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.cda.turnero.dao.EstadoReservaDao;
 import com.cda.turnero.dao.ReservaDao;
+import com.cda.turnero.dto.DetalleReservaDto;
 import com.cda.turnero.model.Cliente;
 import com.cda.turnero.model.EstadoReserva;
 import com.cda.turnero.model.Reserva;
@@ -41,11 +42,11 @@ public class ReservaService {
 			return null;
 		}else return reserva.get();
 	}
-	public boolean crearReserva(String datosReserva, Integer idCliente)	
+	public DetalleReservaDto crearReserva(String datosReserva, Integer idCliente)	
 	{
 		
 		if(usuarioService.existeReservaDeCliente(idCliente)) {
-			return false;
+			return null;
 		}else {
 			
 			JsonElement json = new JsonParser().parse(datosReserva);
@@ -63,8 +64,9 @@ public class ReservaService {
 			reserva.setEstado(estadoReservaService.getEstadoProgramado());
 			reserva.setCliente(cliente);
 			reserva.setCodigoQr(datosReserva);
-			reservaDaoImpl.save(reserva);
-			return true;
+			reserva = reservaDaoImpl.save(reserva);
+			
+			return new DetalleReservaDto(reserva);
 		}
 	}
 	public boolean cancelarReserva(Integer idReserva) {
