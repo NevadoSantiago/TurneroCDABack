@@ -1,8 +1,13 @@
 package com.cda.turnero.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cda.turnero.dao.ConfiguracionSucursalDao;
 import com.cda.turnero.dto.DetalleSucursalDto;
+import com.cda.turnero.model.ConfiguracionSucursal;
 import com.cda.turnero.model.Sucursal;
 import com.cda.turnero.service.SucursalService;
 
@@ -53,6 +60,26 @@ public class SucursalController {
 		
 		return new ResponseEntity<>(SR, HttpStatus.OK);
 	}
+	
+	@GetMapping("/agregar/{direccion}/{nombre}/{latitud}/{longitud}")
+	public ResponseEntity<?> addSucursales(@PathVariable("direccion") String direccion,@PathVariable("nombre") String nombre,@PathVariable("latitud") String latitud,@PathVariable("longitud") String longitud){
+		ConfiguracionSucursal configuracion = new ConfiguracionSucursal();
+		configuracion.setCordLatitud(latitud);
+		configuracion.setCordLongitud(longitud);
+		configuracion = sucursalService.addConfiguracionSucursal(configuracion);
+		Sucursal sucursal = new Sucursal();
+		sucursal.setConfiguracion(configuracion);;
+		sucursal.setDireccion(direccion);
+		sucursal.setNombre(nombre);
+		sucursal.setHabilitada(true);
+		
+		return new ResponseEntity<>(sucursalService.addSucursal(sucursal, configuracion), HttpStatus.OK);
+	}
+	/*
+	@GetMapping("/borrar/{idSucursal}/{idConfiguracion}")
+	public ResponseEntity<?> deleteSucursales(@PathVariable("idSucursal") Integer idSucursal,@PathVariable("idConfiguracion") Integer idConfiguracion){
+		return new ResponseEntity<>(sucursalService.deleteSucursal(idSucursal,idConfiguracion), HttpStatus.OK);
+	}*/
 
 	
 
