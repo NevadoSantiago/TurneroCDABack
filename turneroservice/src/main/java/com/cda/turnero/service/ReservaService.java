@@ -10,7 +10,9 @@ import com.cda.turnero.dao.ReservaDao;
 import com.cda.turnero.model.Cliente;
 import com.cda.turnero.model.EstadoReserva;
 import com.cda.turnero.model.Reserva;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @Service
 public class ReservaService {
@@ -30,28 +32,37 @@ public class ReservaService {
 	@Autowired
 	EspecialidadService especialidadService;
 	
+	@Autowired
+	CodigoQrService codigoQrService;
+	
 	public Reserva getReservaByClienteAndEstadoLike(Cliente cliente, EstadoReserva estado) {
 		Optional<Reserva> reserva = reservaDaoImpl.findByClienteLikeAndFechaSalidaIsNullAndEstadoLike(cliente,estado);
 		if(reserva.isEmpty()) {
 			return null;
 		}else return reserva.get();
 	}
-	public boolean crearReserva(JsonObject datosReserva, Integer idCliente)	
+	public boolean crearReserva(String datosReserva, Integer idCliente)	
 	{
 		
 		if(usuarioService.existeReservaDeCliente(idCliente)) {
 			return false;
 		}else {
+			
+			JsonElement json = new JsonParser().parse(datosReserva);
+			JsonObject jobject = json.getAsJsonObject();
+			
 			Cliente cliente = usuarioService.getClienteById(idCliente);	
-			Integer idSucursal = datosReserva.get("sucursalId").getAsInt();
-			Integer idEspecialidad = datosReserva.get("especialidadId").getAsInt();
-			String descSintomas = datosReserva.get("descSintomas").getAsString();
+			Integer idSucursal = jobject.get("sucursalId").getAsInt();
+			Integer idEspecialidad = jobject.get("especialidadId").getAsInt();
+			String descSintomas = jobject.get("descSintomas").getAsString();
 			
 			Reserva reserva = new Reserva();
 			reserva.setSucursal(sucursalService.getSucursalById(idSucursal));
 			reserva.setEspecialidad(especialidadService.getEspecialidadById(idEspecialidad));
 			reserva.setDescSintomas(descSintomas);		
+			reserva.setEstado(estadoReservaService.getEstadoProgramado());
 			reserva.setCliente(cliente);
+			reserva.setCodigoQr(datosReserva);
 			reservaDaoImpl.save(reserva);
 			return true;
 		}
@@ -61,5 +72,15 @@ public class ReservaService {
 		reserva.setEstado(estadoReservaService.getEstadoCancelado());
 		reservaDaoImpl.save(reserva);
 		return true;
+	}
+	public byte[] getCodigoQrByReserva(Integer reservaId) {
+		Optional<Reserva> reserva = reservaDaoImpl.findById(reservaId);
+		if(reserva.isEmpty()) return null;
+		else {
+			
+			String codigoQr = reserva.get().getCodigoQr();
+			return codigoQrService.showQRCodeImage(codigoQr);
+		}
+		
 	}
 }

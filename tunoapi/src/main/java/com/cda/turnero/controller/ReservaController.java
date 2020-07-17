@@ -40,14 +40,20 @@ public class ReservaController {
 	@PostMapping("/crear/{idUsuario}")
 	public ResponseEntity<?> crearReserva(@RequestBody String descReserva,
 			@PathVariable("idUsuario") Integer idUsuario) {
-		JsonElement json = new JsonParser().parse(descReserva);
-		JsonObject jobject = json.getAsJsonObject();
-		System.out.println(jobject + " " +  idUsuario);
-		return new ResponseEntity<>(reservaService.crearReserva(jobject, idUsuario), HttpStatus.OK);
+		System.out.println(descReserva);
+		return new ResponseEntity<>(reservaService.crearReserva(descReserva, idUsuario), HttpStatus.OK);
 	}
 	@PostMapping("/cancelar/{idReserva}")
 	public ResponseEntity<?> cancelarReserva(@PathVariable Integer idReserva) {
 		return new ResponseEntity<>(reservaService.cancelarReserva(idReserva), HttpStatus.OK);
+	}
+	@ResponseBody
+	@RequestMapping(value = "/QR/{reservaId}", method = RequestMethod.GET, consumes = MediaType.ALL_VALUE, produces = MediaType.IMAGE_PNG_VALUE)
+	public ResponseEntity<byte[]> getQRImageFromTurno(@PathVariable("reservaId") Integer reservaId
+													 ) {
+		
+	    byte[] image = reservaService.getCodigoQrByReserva(reservaId);
+	    return ResponseEntity.ok(image);
 	}
 
 }
