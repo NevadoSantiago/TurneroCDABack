@@ -2,6 +2,7 @@ package com.cda.turnero.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,10 @@ public class Reserva {
 	private Date fechaEntrada;
 	
 	private String descSintomas;
+	@Column(name="cordLongitud_sol")
+	private String longitud;
+	@Column(name="cordLatitud_sol")
+	private String latitud;
 	
 	@ManyToOne
 	@JoinColumn(name="especialidad_id")
@@ -45,6 +50,27 @@ public class Reserva {
 	public Integer getReservaId() {
 		return reservaId;
 	}
+	
+
+	public String getLongitud() {
+		return longitud;
+	}
+
+
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
+	}
+
+
+	public String getLatitud() {
+		return latitud;
+	}
+
+
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+
 
 	public void setReservaId(Integer reservaId) {
 		this.reservaId = reservaId;
