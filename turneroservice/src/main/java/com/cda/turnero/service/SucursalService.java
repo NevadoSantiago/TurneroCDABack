@@ -60,8 +60,8 @@ public class SucursalService {
 	
 	public Boolean deleteSucursal(Integer idSucursal, Integer idConfiguracion) {
 		try {
-			configuracionDao.deleteById(idConfiguracion);
 			sucursalDaoImpl.deleteById(idSucursal);
+			configuracionDao.deleteById(idConfiguracion);
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();

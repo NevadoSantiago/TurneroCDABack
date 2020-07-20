@@ -75,11 +75,12 @@ public class SucursalController {
 		
 		return new ResponseEntity<>(sucursalService.addSucursal(sucursal, configuracion), HttpStatus.OK);
 	}
-	/*
+	
+	
 	@GetMapping("/borrar/{idSucursal}/{idConfiguracion}")
 	public ResponseEntity<?> deleteSucursales(@PathVariable("idSucursal") Integer idSucursal,@PathVariable("idConfiguracion") Integer idConfiguracion){
 		return new ResponseEntity<>(sucursalService.deleteSucursal(idSucursal,idConfiguracion), HttpStatus.OK);
-	}*/
+	}
 
 	
 
