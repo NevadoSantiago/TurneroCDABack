@@ -56,6 +56,8 @@ public class ReservaService {
 			Integer idSucursal = jobject.get("sucursalId").getAsInt();
 			Integer idEspecialidad = jobject.get("especialidadId").getAsInt();
 			String descSintomas = jobject.get("descSintomas").getAsString();
+			String longitud = jobject.get("latitud").getAsString();
+			String latitud = jobject.get("longitud").getAsString();
 			
 			Reserva reserva = new Reserva();
 			reserva.setSucursal(sucursalService.getSucursalById(idSucursal));
@@ -64,6 +66,9 @@ public class ReservaService {
 			reserva.setEstado(estadoReservaService.getEstadoProgramado());
 			reserva.setCliente(cliente);
 			reserva.setCodigoQr(datosReserva);
+			reserva.setLatitud(latitud);
+			reserva.setLongitud(longitud);
+			
 			reserva = reservaDaoImpl.save(reserva);
 			
 			return new DetalleReservaDto(reserva);
