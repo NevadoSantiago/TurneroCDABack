@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cda.turnero.dao.ConfiguracionSucursalDao;
 import com.cda.turnero.dao.SucursalDao;
 import com.cda.turnero.dao.SucursalEspecialidadDao;
 import com.cda.turnero.dto.DetalleSucursalDto;
+import com.cda.turnero.model.ConfiguracionSucursal;
 import com.cda.turnero.model.EspecialidadSucursal;
 import com.cda.turnero.model.Sucursal;
 
@@ -20,6 +22,8 @@ public class SucursalService {
 	SucursalDao sucursalDaoImpl;
 	@Autowired
 	SucursalEspecialidadDao sucursalEspecialidadDao;
+	@Autowired
+	ConfiguracionSucursalDao configuracionDao;
 	
 	public List<Sucursal> getSucursalesByNombreLike(String nombre){
 		List<Sucursal> sucursales = sucursalDaoImpl.findAllByNombreContaining(nombre);
@@ -44,6 +48,25 @@ public class SucursalService {
 	}
 	public List<DetalleSucursalDto> getSucursalesByReservas(Integer idEspecialidad) {
 		return sucursalDaoImpl.getSucursalesByReservas(idEspecialidad);
+	}
+	
+	public ConfiguracionSucursal addConfiguracionSucursal(ConfiguracionSucursal configuracion) {
+		return configuracionDao.save(configuracion);
+	}
+	
+	public Sucursal addSucursal(Sucursal sucursal, ConfiguracionSucursal configuracion) {
+		return sucursalDaoImpl.save(sucursal);
+	}
+	
+	public Boolean deleteSucursal(Integer idSucursal, Integer idConfiguracion) {
+		try {
+			sucursalDaoImpl.deleteById(idSucursal);
+			configuracionDao.deleteById(idConfiguracion);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 	
 }

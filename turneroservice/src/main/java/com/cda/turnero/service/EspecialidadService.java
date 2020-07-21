@@ -20,4 +20,17 @@ public class EspecialidadService {
 	public Especialidad getEspecialidadById(Integer id) {
 		return especialidadDaoImpl.findById(id).get();
 	}
+	public Especialidad agregarEspecialidad(Especialidad especialidad) {
+		return especialidadDaoImpl.save(especialidad);
+	}
+	public Boolean borrarEspecialidad(Integer idEspecialidad) {
+		try {
+			especialidadDaoImpl.deleteById(idEspecialidad);
+			return true;
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
 }

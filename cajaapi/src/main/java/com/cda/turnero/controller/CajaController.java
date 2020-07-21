@@ -1,24 +1,12 @@
 package com.cda.turnero.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.cda.turnero.model.CodigoQr;
-import com.cda.turnero.model.Turno;
-import com.cda.turnero.services.CajaService;
-import com.cda.turnero.services.TurnoService;
 
 @RequestMapping("/api/caja")
 @RestController
 public class CajaController {
-	
+	/*
 	@Autowired
 	CajaService cajaService;
 	TurnoService turnoService;
@@ -44,7 +32,7 @@ public class CajaController {
 	/*@GetMapping("/tipo/{QR}")
 	public ResponseEntity<?> listaTipoCaja(@PathVariable("QR") String QR){
 		return new ResponseEntity<>(cajaService.listadoTipoCaja(), HttpStatus.OK);
-	}*/
+	}
 		
 	@PatchMapping("/habilitarCaja/{IdCaja}")
 	public ResponseEntity<?> habilitarCaja(@PathVariable("IdCaja") Integer idCaja){
@@ -94,5 +82,5 @@ public class CajaController {
 	public ResponseEntity<?> deshabilitarQr(@PathVariable("idQr") Integer idQr){
 		return new ResponseEntity<>(cajaService.deshabilitarQr(idQr), HttpStatus.OK);
 	}
-	
+	*/
 }
