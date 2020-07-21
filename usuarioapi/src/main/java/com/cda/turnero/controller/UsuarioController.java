@@ -28,12 +28,11 @@ public class UsuarioController {
 	}
 	@PostMapping("/auth")
 	public ResponseEntity<?> ingresoDeUsuario(@RequestBody String autenticacion) {
-//		try {
+		try {
 			UsuarioLogueadoDto uLogueado = usuarioService.ingresoUsuario(autenticacion);
 			return new ResponseEntity<>(uLogueado, HttpStatus.OK);
-//		}catch(Exception e) {
-//			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
-//		}
-//		return new ResponseEntity<>(autenticacion, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
+		}
 	}
 }
