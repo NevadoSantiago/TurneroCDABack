@@ -13,6 +13,7 @@ import com.cda.turnero.model.Cliente;
 import com.cda.turnero.model.Empleado;
 import com.cda.turnero.model.EstadoReserva;
 import com.cda.turnero.model.Reserva;
+import com.cda.turnero.model.Sucursal;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -28,6 +29,8 @@ public class UsuarioService {
 	EmpleadoDao empleadoDaoImpl;
 	@Autowired
 	EstadoReservaService estadoReservaService;
+	@Autowired
+	SucursalService sucursalService;
 	
 	public ClienteLogueadoDto ingresoCliente(String mail) {
 		Optional<Cliente> cliente = clienteDaoImpl.findByMailLike(mail);
@@ -59,9 +62,9 @@ public class UsuarioService {
 		
 		String tipoUsuario = empleado.getUsuario().getTipoUsuario().getDetalle();
 		Integer personaId = empleado.getPersonaId();
-		Integer sucursalId = empleado.getSucursal().getSucursalId();
+		Sucursal sucursal = sucursalService.getSucursalById(empleado.getSucursal().getSucursalId());
 		
-		UsuarioLogueadoDto uLogueadoDto = new UsuarioLogueadoDto(usuario, tipoUsuario,personaId,sucursalId);
+		UsuarioLogueadoDto uLogueadoDto = new UsuarioLogueadoDto(usuario, tipoUsuario,personaId,sucursal);
 		return uLogueadoDto;
 	
 		

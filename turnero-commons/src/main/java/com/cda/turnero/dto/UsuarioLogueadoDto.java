@@ -1,11 +1,13 @@
 package com.cda.turnero.dto;
 
+import com.cda.turnero.model.Sucursal;
+
 public class UsuarioLogueadoDto {
 	
 	private String usuario;
 	private String tipoUsuario;
 	private Integer idUsuario;
-	private Integer sucursalId;
+	private Sucursal sucursal;
 	
 	public UsuarioLogueadoDto() {
 		
@@ -19,11 +21,11 @@ public class UsuarioLogueadoDto {
 	}
 
 
-	public UsuarioLogueadoDto(String usuario, String tipoUsuario, Integer idUsuario, Integer sucursalId) {
+	public UsuarioLogueadoDto(String usuario, String tipoUsuario, Integer idUsuario, Sucursal sucursal) {
 		this.usuario = usuario;
 		this.tipoUsuario = tipoUsuario;
 		this.idUsuario = idUsuario;
-		this.sucursalId = sucursalId;
+		this.sucursal = sucursal;
 	}
 	public String getUsuario() {
 		return usuario;
@@ -43,11 +45,11 @@ public class UsuarioLogueadoDto {
 	public void setIdUsuario(Integer idUsuario) {
 		this.idUsuario = idUsuario;
 	}
-	public Integer getSucursalId() {
-		return sucursalId;
+	public Sucursal getSucursal() {
+		return sucursal;
 	}
-	public void setSucursalId(Integer sucursalId) {
-		this.sucursalId = sucursalId;
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
 	}
 	
 	
