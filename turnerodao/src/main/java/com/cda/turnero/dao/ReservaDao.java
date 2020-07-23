@@ -12,4 +12,6 @@ public interface ReservaDao extends JpaRepository<Reserva, Integer> {
 
 	Optional<Reserva> findByClienteLikeAndFechaSalidaIsNullAndEstadoLike(Cliente cliente, EstadoReserva estado);
 	
+	Long getCantidadReservasPorSucursal(Integer idSucursal);
+	
 }

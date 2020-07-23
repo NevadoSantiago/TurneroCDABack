@@ -47,6 +47,13 @@ public class SucursalController {
 		
 		return new ResponseEntity<>(empleados, HttpStatus.OK);
 	}
+	@GetMapping("/get/espera/{sucursalId}")
+	public ResponseEntity<?> getEsperaPorSucursal(@PathVariable("sucursalId") Integer sucursalId){
+													
+		Long cantidad = sucursalService.getCantidadReservasPorSucursal(sucursalId);
+		
+		return new ResponseEntity<>(cantidad, HttpStatus.OK);
+	}
 	@GetMapping("/filtrar/especialidad/{idEspecialidad}")
 	public ResponseEntity<?> filtrarPorEspecialidad(
 			@PathVariable("idEspecialidad") Integer idEspecialidad){

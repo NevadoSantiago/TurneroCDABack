@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.cda.turnero.dao.ConfiguracionSucursalDao;
 import com.cda.turnero.dao.EmpleadoDao;
+import com.cda.turnero.dao.ReservaDao;
 import com.cda.turnero.dao.SucursalDao;
 import com.cda.turnero.dao.SucursalEspecialidadDao;
 import com.cda.turnero.dto.DetalleEmpleadoDto;
@@ -30,6 +31,8 @@ public class SucursalService {
 	ConfiguracionSucursalDao configuracionDao;
 	@Autowired
 	EmpleadoDao empleadoDaoImpl;
+	@Autowired
+	ReservaDao reservaDaoImpl;
 	public List<Sucursal> getSucursalesByNombreLike(String nombre){
 		List<Sucursal> sucursales = sucursalDaoImpl.findAllByNombreContaining(nombre);
 		return sucursales;
@@ -90,6 +93,10 @@ public class SucursalService {
 		String mail = empleado.getMail();
 		String rol = empleado.getUsuario().getTipoUsuario().getDetalle();
 		return new DetalleEmpleadoDto(idEmpleado, nombre, apellido, mail, rol);
+	}
+
+	public Long getCantidadReservasPorSucursal(Integer sucursalId) {
+		return reservaDaoImpl.getCantidadReservasPorSucursal(sucursalId);
 	}
 	
 }
