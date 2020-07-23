@@ -42,5 +42,9 @@ public class EspecialidadController {
 	public ResponseEntity<?> deleteEspecialidad(@PathVariable("idEspecialidad") Integer idEspecialidad){
 		return new ResponseEntity<>(especialidadService.borrarEspecialidad(idEspecialidad), HttpStatus.OK);
 	}
+	@GetMapping("/get/{idSucursal}")
+	public ResponseEntity<?> getEspecialidadesBySucursal(@PathVariable("idSucursal") Integer idSucursal){
+		return new ResponseEntity<>(especialidadService.getEspecialidadesBySucursal(idSucursal), HttpStatus.OK);
+	}
 	
 }

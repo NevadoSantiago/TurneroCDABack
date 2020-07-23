@@ -30,5 +30,17 @@ public class SucursalEspecialidadDaoImpl {
         
         return query.getResultList();
     }  
+    public List<EspecialidadSucursal> getBySucursalLike(Integer sucursalId){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<EspecialidadSucursal> criteriaQuery = criteriaBuilder.createQuery(EspecialidadSucursal.class);
+        Root<EspecialidadSucursal> especialidadSucursal = criteriaQuery.from(EspecialidadSucursal.class); 
+        TypedQuery<EspecialidadSucursal> query = entityManager.createQuery(criteriaQuery.select(especialidadSucursal)
+        		.where(criteriaBuilder.equal(especialidadSucursal.join("sucursal").get("sucursalId"), sucursalId)));   
+        
+        return query.getResultList();
+    	
+    }
+    
 
 }

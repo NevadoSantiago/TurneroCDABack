@@ -1,18 +1,23 @@
 package com.cda.turnero.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cda.turnero.dao.EspecialidadDao;
+import com.cda.turnero.dao.SucursalEspecialidadDao;
 import com.cda.turnero.model.Especialidad;
+import com.cda.turnero.model.EspecialidadSucursal;
 
 @Service
 public class EspecialidadService {
 
 	@Autowired
 	EspecialidadDao especialidadDaoImpl;
+	@Autowired
+	SucursalEspecialidadDao sucursalEspecialidadDaoImpl;
 	
 	public List<Especialidad> getAllEspecialidades(){
 		return especialidadDaoImpl.findAll();
@@ -32,5 +37,13 @@ public class EspecialidadService {
 			return false;
 		}
 		
+	}
+	public List<Especialidad> getEspecialidadesBySucursal(Integer idSucursal) {
+		List<EspecialidadSucursal> espSuc = sucursalEspecialidadDaoImpl.getBySucursalLike(idSucursal);
+		List<Especialidad> especialidades= new ArrayList<Especialidad>();
+		for(EspecialidadSucursal ES : espSuc) {
+			especialidades.add(ES.getEspecialidad());
+		}
+		return especialidades;
 	}
 }

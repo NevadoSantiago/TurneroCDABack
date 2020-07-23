@@ -42,7 +42,7 @@ public class ReservaController {
 			@PathVariable("idUsuario") Integer idUsuario) {
 		return new ResponseEntity<>(reservaService.crearReserva(descReserva, idUsuario), HttpStatus.OK);
 	}
-	@PostMapping("/crear/entrada")
+	@PostMapping("/crear/entrada/")
 	public ResponseEntity<?> crearReservaEntrada(@RequestBody String descReserva) {
 		try {
 			boolean realizado = reservaService.crearReservaEnEntrada(descReserva);
