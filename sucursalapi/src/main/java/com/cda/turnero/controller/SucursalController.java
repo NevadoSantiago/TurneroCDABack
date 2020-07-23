@@ -10,17 +10,21 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.cda.turnero.dto.DetalleEmpleadoDto;
 import com.cda.turnero.dto.DetalleSucursalDto;
 import com.cda.turnero.model.ConfiguracionSucursal;
+import com.cda.turnero.model.Empleado;
 import com.cda.turnero.model.Sucursal;
 import com.cda.turnero.service.SucursalService;
 
 
-
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/sucursal")
 public class SucursalController {
@@ -34,6 +38,14 @@ public class SucursalController {
 		List<Sucursal> sucursales = sucursalService.getSucursalesByNombreLike(nombre);
 		
 		return new ResponseEntity<>(sucursales, HttpStatus.OK);
+	}
+	@GetMapping("/get/empleado/{rol}/{sucursalId}")
+	public ResponseEntity<?> getPersonalESBySucursal(@PathVariable("sucursalId") Integer sucursalId,
+													@PathVariable("rol") String rol){
+													
+		List<DetalleEmpleadoDto> empleados = sucursalService.getEmpleadosByRolAndSucursal(rol, sucursalId);
+		
+		return new ResponseEntity<>(empleados, HttpStatus.OK);
 	}
 	@GetMapping("/filtrar/especialidad/{idEspecialidad}")
 	public ResponseEntity<?> filtrarPorEspecialidad(

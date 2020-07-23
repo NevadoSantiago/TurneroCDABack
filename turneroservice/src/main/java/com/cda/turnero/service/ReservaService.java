@@ -42,17 +42,17 @@ public class ReservaService {
 			return null;
 		}else return reserva.get();
 	}
-	public DetalleReservaDto crearReserva(String datosReserva, Integer idCliente)	
+	public DetalleReservaDto crearReserva(String datosReserva, Integer id)	
 	{
 		
-		if(usuarioService.existeReservaDeCliente(idCliente)) {
+		if(usuarioService.existeReservaDeCliente(id)) {
 			return null;
 		}else {
 			
 			JsonElement json = new JsonParser().parse(datosReserva);
 			JsonObject jobject = json.getAsJsonObject();
 			
-			Cliente cliente = usuarioService.getClienteById(idCliente);	
+			Cliente cliente = usuarioService.getClienteById(id);	
 			Integer idSucursal = jobject.get("sucursalId").getAsInt();
 			Integer idEspecialidad = jobject.get("especialidadId").getAsInt();
 			String descSintomas = jobject.get("descSintomas").getAsString();
@@ -73,6 +73,27 @@ public class ReservaService {
 			
 			return new DetalleReservaDto(reserva);
 		}
+	}
+	public boolean crearReservaEnEntrada(String datosReserva) {
+			
+			JsonElement json = new JsonParser().parse(datosReserva);
+			JsonObject jobject = json.getAsJsonObject();
+			
+			Integer idEspecialidad = jobject.get("especialidadId").getAsInt();
+			Integer idSucursal = jobject.get("sucursalId").getAsInt();
+			String descSintomas = jobject.get("descSintomas").getAsString();
+//			String nombre = jobject.get("nombre").getAsString();
+//			String apellido = jobject.get("apellido").getAsString();
+			
+			Reserva reserva = new Reserva();
+			reserva.setSucursal(sucursalService.getSucursalById(idSucursal));
+			reserva.setEspecialidad(especialidadService.getEspecialidadById(idEspecialidad));
+			reserva.setDescSintomas(descSintomas);		
+			reserva.setEstado(estadoReservaService.getEstadoProgramado());
+			reserva.setCodigoQr(datosReserva);			
+			reserva = reservaDaoImpl.save(reserva);
+			return true;
+		
 	}
 	public boolean cancelarReserva(Integer idReserva) {
 		Reserva reserva = reservaDaoImpl.findById(idReserva).get();		

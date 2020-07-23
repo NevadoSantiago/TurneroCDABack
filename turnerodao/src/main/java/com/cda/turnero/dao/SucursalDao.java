@@ -13,5 +13,5 @@ public interface SucursalDao extends JpaRepository<Sucursal, Integer> {
 	List<Sucursal> findAllByNombreContaining(String nombre);
 	
 	List<DetalleSucursalDto> getSucursalesByReservas(Integer idEspecialidad);
-	
+		
 }

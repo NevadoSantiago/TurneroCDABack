@@ -41,10 +41,32 @@ public class EmpleadoDaoImpl {
 		query.select(empleado)
 		.where(criteriaBuilder.and(
 				criteriaBuilder.equal(userJoin.get("usuario"), usuario),
-				criteriaBuilder.equal(userJoin.get("password"),contrasena)));
+				criteriaBuilder.equal(userJoin.get("password"),contrasena),
+				criteriaBuilder.isNull(empleado.get("fechaBaja"))));
 		
 		TypedQuery<Empleado> typedQuery = entityManager.createQuery(query);
 		Empleado empl = typedQuery.getSingleResult();		
+		return empl;
+	}
+	public List<Empleado> getEmpleadosByRolAndSucursalId(String rol, Integer sucursalId){
+		
+		
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		
+		CriteriaQuery<Empleado> query = criteriaBuilder.createQuery(Empleado.class);
+		
+		Root<Empleado> empleado = query.from(Empleado.class);
+		
+		Join tipoUsuarioJoin = empleado.join("usuario").join("tipoUsuario");
+		
+		query.select(empleado)
+		.where(criteriaBuilder.and(
+				criteriaBuilder.equal(tipoUsuarioJoin.get("detalle"), rol),
+				criteriaBuilder.equal(empleado.join("sucursal").get("sucursalId"),sucursalId),
+				criteriaBuilder.isNull(empleado.get("fechaBaja"))));
+		
+		TypedQuery<Empleado> typedQuery = entityManager.createQuery(query);
+		List<Empleado> empl = typedQuery.getResultList();		
 		return empl;
 	}
 	

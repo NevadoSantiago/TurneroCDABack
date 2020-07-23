@@ -1,6 +1,7 @@
 package com.cda.turnero.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,10 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cda.turnero.dao.ConfiguracionSucursalDao;
+import com.cda.turnero.dao.EmpleadoDao;
 import com.cda.turnero.dao.SucursalDao;
 import com.cda.turnero.dao.SucursalEspecialidadDao;
+import com.cda.turnero.dto.DetalleEmpleadoDto;
 import com.cda.turnero.dto.DetalleSucursalDto;
 import com.cda.turnero.model.ConfiguracionSucursal;
+import com.cda.turnero.model.Empleado;
 import com.cda.turnero.model.EspecialidadSucursal;
 import com.cda.turnero.model.Sucursal;
 
@@ -24,11 +28,13 @@ public class SucursalService {
 	SucursalEspecialidadDao sucursalEspecialidadDao;
 	@Autowired
 	ConfiguracionSucursalDao configuracionDao;
-	
+	@Autowired
+	EmpleadoDao empleadoDaoImpl;
 	public List<Sucursal> getSucursalesByNombreLike(String nombre){
 		List<Sucursal> sucursales = sucursalDaoImpl.findAllByNombreContaining(nombre);
 		return sucursales;
 	}
+	
 	public List<Sucursal> getSucursalesByEspecialidad(Integer idEspecialidad){
 		
 		List<EspecialidadSucursal> ES =
@@ -67,6 +73,23 @@ public class SucursalService {
 			e.printStackTrace();
 			return false;
 		}
+	}
+	public List<DetalleEmpleadoDto> getEmpleadosByRolAndSucursal(String rol, Integer sucursalId) {
+		List<Empleado> listEmpleados = empleadoDaoImpl.getEmpleadosByRolAndSucursalId(rol, sucursalId);
+		List<DetalleEmpleadoDto> DE = new ArrayList<DetalleEmpleadoDto>();
+		for(Empleado e : listEmpleados) {
+			DE.add(detalleEmpleadoMapper(e));
+		}
+		return DE;
+		
+	}
+	private DetalleEmpleadoDto detalleEmpleadoMapper(Empleado empleado){
+		Integer idEmpleado = empleado.getPersonaId();
+		String nombre = empleado.getNombre();
+		String apellido = empleado.getApellido();
+		String mail = empleado.getMail();
+		String rol = empleado.getUsuario().getTipoUsuario().getDetalle();
+		return new DetalleEmpleadoDto(idEmpleado, nombre, apellido, mail, rol);
 	}
 	
 }

@@ -1,6 +1,9 @@
 package com.cda.turnero.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,5 +37,9 @@ public class UsuarioController {
 		}catch(Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
 		}
+	}
+	@PostMapping("/eliminar/{idUsuario}")
+	public ResponseEntity<?> ingresoDeUsuario(@PathVariable("idUsuario") Integer usuarioId){
+			return new ResponseEntity<>(usuarioService.eliminarUsuario(usuarioId), HttpStatus.OK);
 	}
 }
