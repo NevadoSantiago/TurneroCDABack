@@ -71,8 +71,8 @@ public class UsuarioService {
 		
 		String tipoUsuario = empleado.getUsuario().getTipoUsuario().getDetalle();
 		Integer personaId = empleado.getPersonaId();
-		Sucursal sucursal = sucursalService.getSucursalById(empleado.getSucursal().getSucursalId());
-		
+		Sucursal sucursal =empleado.getSucursal();
+			
 		UsuarioLogueadoDto uLogueadoDto = new UsuarioLogueadoDto(usuario, tipoUsuario,personaId,sucursal);
 		return uLogueadoDto;
 	

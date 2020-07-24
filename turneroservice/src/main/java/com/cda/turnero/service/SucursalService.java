@@ -14,10 +14,12 @@ import com.cda.turnero.dao.ReservaDao;
 import com.cda.turnero.dao.SucursalDao;
 import com.cda.turnero.dao.SucursalEspecialidadDao;
 import com.cda.turnero.dto.DetalleEmpleadoDto;
+import com.cda.turnero.dto.DetalleReservaAdminDto;
 import com.cda.turnero.dto.DetalleSucursalDto;
 import com.cda.turnero.model.ConfiguracionSucursal;
 import com.cda.turnero.model.Empleado;
 import com.cda.turnero.model.EspecialidadSucursal;
+import com.cda.turnero.model.Reserva;
 import com.cda.turnero.model.Sucursal;
 
 @Service
@@ -97,6 +99,10 @@ public class SucursalService {
 
 	public Long getCantidadReservasPorSucursal(Integer sucursalId) {
 		return reservaDaoImpl.getCantidadReservasPorSucursal(sucursalId);
+	}
+
+	public List<DetalleReservaAdminDto> getListadoEsperaPorSucursalId(Integer sucursalId) {
+		return reservaDaoImpl.getListadoReservasPorSucursal(sucursalId);
 	}
 	
 }

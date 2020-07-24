@@ -37,7 +37,11 @@ public class SucursalDaoImpl {
 		Predicate estado = criteriaBuilder.equal(reserva.get("estado").get("nombre"),"PROGRAMADO");
 		
 		query.where(criteriaBuilder.and(fechaSalidaNullo, especialidad,estado));
-		query.multiselect(sucursal.get("sucursalId"), sucursal.get("nombre"), sucursal.get("direccion"), criteriaBuilder.count(sucursal.get("sucursalId")),sucursal.join("configuracion").get("cordLongitud"),sucursal.join("configuracion").get("cordLatitud"));
+		query.multiselect(
+				sucursal.get("sucursalId"),
+				sucursal.get("nombre"),
+				sucursal.get("direccion"),
+				criteriaBuilder.count(sucursal.get("sucursalId")),sucursal.join("configuracion").get("cordLongitud"),sucursal.join("configuracion").get("cordLatitud"));
 		query.groupBy(sucursal.get("sucursalId"));
 		query.orderBy(criteriaBuilder.asc(criteriaBuilder.count(sucursal.get("sucursalId"))));
 		TypedQuery<DetalleSucursalDto> typedQuery = entityManager.createQuery(query);

@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cda.turnero.dto.DetalleEmpleadoDto;
+import com.cda.turnero.dto.DetalleReservaAdminDto;
 import com.cda.turnero.dto.DetalleSucursalDto;
 import com.cda.turnero.model.ConfiguracionSucursal;
 import com.cda.turnero.model.Empleado;
+import com.cda.turnero.model.Reserva;
 import com.cda.turnero.model.Sucursal;
 import com.cda.turnero.service.SucursalService;
 
@@ -53,6 +55,13 @@ public class SucursalController {
 		Long cantidad = sucursalService.getCantidadReservasPorSucursal(sucursalId);
 		
 		return new ResponseEntity<>(cantidad, HttpStatus.OK);
+	}
+	@GetMapping("/get/listadoEspera/{sucursalId}")
+	public ResponseEntity<?> getListadoEsperaPorSucursal(@PathVariable("sucursalId") Integer sucursalId){
+													
+		List<DetalleReservaAdminDto> DR = sucursalService.getListadoEsperaPorSucursalId(sucursalId);
+		
+		return new ResponseEntity<>(DR, HttpStatus.OK);
 	}
 	@GetMapping("/filtrar/especialidad/{idEspecialidad}")
 	public ResponseEntity<?> filtrarPorEspecialidad(
