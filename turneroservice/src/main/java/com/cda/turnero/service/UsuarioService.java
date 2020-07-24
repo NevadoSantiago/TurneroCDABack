@@ -2,6 +2,7 @@ package com.cda.turnero.service;
 
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.joda.time.LocalDate;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.cda.turnero.dao.ClienteDao;
 import com.cda.turnero.dao.EmpleadoDao;
+import com.cda.turnero.dao.TipoUsuarioDao;
 import com.cda.turnero.dto.ClienteLogueadoDto;
 import com.cda.turnero.dto.UsuarioLogueadoDto;
 import com.cda.turnero.model.Cliente;
@@ -17,6 +19,8 @@ import com.cda.turnero.model.Empleado;
 import com.cda.turnero.model.EstadoReserva;
 import com.cda.turnero.model.Reserva;
 import com.cda.turnero.model.Sucursal;
+import com.cda.turnero.model.TipoUsuario;
+import com.cda.turnero.model.Usuario;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -34,6 +38,8 @@ public class UsuarioService {
 	EstadoReservaService estadoReservaService;
 	@Autowired
 	SucursalService sucursalService;
+	@Autowired
+	TipoUsuarioDao tipoUsuarioDaoImpl;
 	
 	public ClienteLogueadoDto ingresoCliente(String mail) {
 		Optional<Cliente> cliente = clienteDaoImpl.findByMailLike(mail);
@@ -118,6 +124,37 @@ public class UsuarioService {
 			empleadoDaoImpl.save(emp);
 			return true;
 		}	
+	}
+	public List<TipoUsuario> getRoles() {
+		return tipoUsuarioDaoImpl.findAll();
+	}
+	public boolean editarUsuario(String datos) {
+		
+		JsonElement json = new JsonParser().parse(datos);
+		JsonObject jobject = json.getAsJsonObject();
+		
+		Integer idEmpleado = jobject.get("idEmpleado").getAsInt();
+		String nombre = jobject.get("nombre").getAsString();
+		String apellido = jobject.get("apellido").getAsString();
+		String mail = jobject.get("mail").getAsString();
+		Integer idRol = jobject.get("rol").getAsInt();
+		
+		Optional<Empleado> empleado = empleadoDaoImpl.findById(idEmpleado);
+		if(empleado.isEmpty()) {
+			return false;
+		}else {
+			Empleado emp = empleado.get();
+			emp.setNombre(nombre);
+			emp.setApellido(apellido);
+			emp.setMail(mail);
+			Usuario usuario = emp.getUsuario();
+			usuario.setTipoUsuario(tipoUsuarioDaoImpl.findById(idRol).get());
+			emp.setUsuario(usuario);
+			empleadoDaoImpl.save(emp);
+			return true;
+		}
+		
+		
 	}
 
 }
