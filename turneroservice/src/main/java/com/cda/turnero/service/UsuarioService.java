@@ -70,10 +70,12 @@ public class UsuarioService {
 		if(empleado == null)	return null;
 		
 		String tipoUsuario = empleado.getUsuario().getTipoUsuario().getDetalle();
+		String nombre = empleado.getNombre();
+		String apellido = empleado.getApellido();
 		Integer personaId = empleado.getPersonaId();
 		Sucursal sucursal =empleado.getSucursal();
 			
-		UsuarioLogueadoDto uLogueadoDto = new UsuarioLogueadoDto(usuario, tipoUsuario,personaId,sucursal);
+		UsuarioLogueadoDto uLogueadoDto = new UsuarioLogueadoDto(usuario, tipoUsuario,personaId,sucursal, nombre, apellido);
 		return uLogueadoDto;
 	
 		

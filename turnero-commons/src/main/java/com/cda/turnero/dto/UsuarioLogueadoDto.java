@@ -5,6 +5,8 @@ import com.cda.turnero.model.Sucursal;
 public class UsuarioLogueadoDto {
 	
 	private String usuario;
+	private String nombre;
+	private String apellido;
 	private String tipoUsuario;
 	private Integer idUsuario;
 	private Sucursal sucursal;
@@ -15,18 +17,40 @@ public class UsuarioLogueadoDto {
 	
 	
 	public UsuarioLogueadoDto(String usuario, String tipoUsuario) {
-		super();
 		this.usuario = usuario;
 		this.tipoUsuario = tipoUsuario;
 	}
 
 
-	public UsuarioLogueadoDto(String usuario, String tipoUsuario, Integer idUsuario, Sucursal sucursal) {
+	public UsuarioLogueadoDto(String usuario, String tipoUsuario, Integer idUsuario, Sucursal sucursal, String nombre,String apellido) {
 		this.usuario = usuario;
 		this.tipoUsuario = tipoUsuario;
 		this.idUsuario = idUsuario;
 		this.sucursal = sucursal;
+		this.nombre = nombre;
+		this.apellido = apellido;
 	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+
+	public String getApellido() {
+		return apellido;
+	}
+
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+
 	public String getUsuario() {
 		return usuario;
 	}
