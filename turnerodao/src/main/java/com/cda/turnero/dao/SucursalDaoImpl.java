@@ -145,7 +145,7 @@ public class SucursalDaoImpl {
         		criteriaQuery.where(
         				criteriaBuilder.and(
         				criteriaBuilder.equal(reserva.join("sucursal").get("sucursalId"), idSucursal),
-        				criteriaBuilder.isNotNull(reserva.get("fechaSalida"))));
+        				criteriaBuilder.isNull(reserva.get("fechaSalida"))));
         		criteriaQuery.groupBy(reserva.get("especialidad"));
         		criteriaQuery.multiselect(reserva.join("especialidad").get("nombre"),
         									reserva.join("especialidad").get("especialidadId"),
