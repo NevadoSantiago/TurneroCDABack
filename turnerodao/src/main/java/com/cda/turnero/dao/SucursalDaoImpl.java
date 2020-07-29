@@ -1,5 +1,6 @@
 package com.cda.turnero.dao;
 
+import java.sql.Time;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -22,6 +23,7 @@ import com.cda.turnero.model.Empleado;
 import com.cda.turnero.model.EspecialidadSucursal;
 import com.cda.turnero.model.Reserva;
 import com.cda.turnero.model.Sucursal;
+import com.cda.turnero.utils.UnitExpression;
 
 @Repository
 public class SucursalDaoImpl {
@@ -124,15 +126,25 @@ public class SucursalDaoImpl {
         CriteriaQuery<Double> criteriaQuery = criteriaBuilder.createQuery(Double.class);
         Root<Reserva> reserva = criteriaQuery.from(Reserva.class); 
         
+        Expression<String> minute = new UnitExpression(null, String.class, "SECOND");
+        
         		criteriaQuery.where(
         				criteriaBuilder.and(
         				criteriaBuilder.equal(reserva.join("sucursal").get("sucursalId"), idSucursal),
         				criteriaBuilder.equal(reserva.join("especialidad").get("especialidadId"), idEspecialidad),
         				criteriaBuilder.isNotNull(reserva.get("fechaSalida"))));
-        		criteriaQuery.multiselect(criteriaBuilder.avg(
-        									criteriaBuilder.function("timediff", Integer.class,
-        											reserva.get("fechaSalida"),
-        											reserva.get("fechaEntrada"))));
+        		
+        		Expression<Time> timeDiff = criteriaBuilder.function(
+        	            "TIMEDIFF",
+        	            Time.class,
+        	            reserva.get("fechaSalida"),
+        	            reserva.get("fechaEntrada"));
+        		Expression<Integer> timeToSec = criteriaBuilder.function(
+        	            "TIME_TO_SEC",
+        	            Integer.class,
+        	            timeDiff );
+        		
+        		criteriaQuery.multiselect(criteriaBuilder.avg(timeToSec));
         		TypedQuery<Double> typedQuery = entityManager.createQuery(criteriaQuery);
         		return typedQuery.getSingleResult();
     }  
