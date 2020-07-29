@@ -22,6 +22,12 @@ public class DetalleEmpleadoDto {
 		this.mail = mail;
 		this.rol = rol;
 	}
+	public DetalleEmpleadoDto(Integer idEmpleado, String nombre, String apellido, String mail) {
+		this.idEmpleado = idEmpleado;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.mail = mail;
+	}
 	public Integer getIdEmpleado() {
 		return idEmpleado;
 	}

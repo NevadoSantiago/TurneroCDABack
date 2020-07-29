@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
@@ -14,7 +15,10 @@ import javax.persistence.criteria.Subquery;
 
 import org.springframework.stereotype.Repository;
 
+import com.cda.turnero.dto.DetalleEmpleadoDto;
 import com.cda.turnero.dto.DetalleSucursalDto;
+import com.cda.turnero.dto.EsperaEspecialidadDto;
+import com.cda.turnero.model.Empleado;
 import com.cda.turnero.model.EspecialidadSucursal;
 import com.cda.turnero.model.Reserva;
 import com.cda.turnero.model.Sucursal;
@@ -78,4 +82,75 @@ public class SucursalDaoImpl {
 		return resultList;
 		
 	}
+    public List<DetalleEmpleadoDto> getAdminPorSucursal(Integer sucursalId) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<DetalleEmpleadoDto> criteriaQuery = criteriaBuilder.createQuery(DetalleEmpleadoDto.class);
+        Root<Empleado> empleado = criteriaQuery.from(Empleado.class); 
+        
+        		criteriaQuery.where(
+        				criteriaBuilder.and(
+        				criteriaBuilder.equal(empleado.join("sucursal").get("sucursalId"), sucursalId),
+        				criteriaBuilder.equal(empleado.join("usuario").join("tipoUsuario").get("detalle"), "ADMIN_SUCURSAL")));
+        		criteriaQuery.multiselect(
+        					empleado.get("personaId"),
+        					empleado.get("nombre"),
+        					empleado.get("apellido"),
+        					empleado.get("mail"));
+        		TypedQuery<DetalleEmpleadoDto> typedQuery = entityManager.createQuery(criteriaQuery);
+        		return typedQuery.getResultList();
+    } 
+//    public Double getTiempoPromedioByEspecialidadAndSucursal(Integer idSucursal, Integer idEspecialidad) {
+//        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+//
+//        CriteriaQuery<Double> criteriaQuery = criteriaBuilder.createQuery(Double.class);
+//        Root<Reserva> reserva = criteriaQuery.from(Reserva.class); 
+//        
+//        		criteriaQuery.where(
+//        				criteriaBuilder.and(
+//        				criteriaBuilder.equal(reserva.join("sucursal").get("sucursalId"), idSucursal),
+//        				criteriaBuilder.equal(reserva.join("especialidad").get("especialidadId"), idEspecialidad),
+//        				criteriaBuilder.isNotNull(reserva.get("fechaSalida"))));
+//        		criteriaQuery.multiselect(criteriaBuilder.avg(
+//        									criteriaBuilder.diff(
+//        											reserva.get("fechaSalida"),
+//        											reserva.get("fechaEntrada"))));
+//        		TypedQuery<Double> typedQuery = entityManager.createQuery(criteriaQuery);
+//        		return typedQuery.getSingleResult();
+//    } 
+    public Double getTiempoPromedioByEspecialidadAndSucursal(Integer idSucursal, Integer idEspecialidad) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Double> criteriaQuery = criteriaBuilder.createQuery(Double.class);
+        Root<Reserva> reserva = criteriaQuery.from(Reserva.class); 
+        
+        		criteriaQuery.where(
+        				criteriaBuilder.and(
+        				criteriaBuilder.equal(reserva.join("sucursal").get("sucursalId"), idSucursal),
+        				criteriaBuilder.equal(reserva.join("especialidad").get("especialidadId"), idEspecialidad),
+        				criteriaBuilder.isNotNull(reserva.get("fechaSalida"))));
+        		criteriaQuery.multiselect(criteriaBuilder.avg(
+        									criteriaBuilder.function("timediff", Integer.class,
+        											reserva.get("fechaSalida"),
+        											reserva.get("fechaEntrada"))));
+        		TypedQuery<Double> typedQuery = entityManager.createQuery(criteriaQuery);
+        		return typedQuery.getSingleResult();
+    }  
+    public List<EsperaEspecialidadDto> getListadoEsperaPorEspecialidad(Integer idSucursal){
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<EsperaEspecialidadDto> criteriaQuery = criteriaBuilder.createQuery(EsperaEspecialidadDto.class);
+        Root<Reserva> reserva = criteriaQuery.from(Reserva.class); 
+        
+        		criteriaQuery.where(
+        				criteriaBuilder.and(
+        				criteriaBuilder.equal(reserva.join("sucursal").get("sucursalId"), idSucursal),
+        				criteriaBuilder.isNotNull(reserva.get("fechaSalida"))));
+        		criteriaQuery.groupBy(reserva.get("especialidad"));
+        		criteriaQuery.multiselect(reserva.join("especialidad").get("nombre"),
+        									reserva.join("especialidad").get("especialidadId"),
+        									criteriaBuilder.count(reserva.get("reservaId")));
+        		TypedQuery<EsperaEspecialidadDto> typedQuery = entityManager.createQuery(criteriaQuery);
+        		return typedQuery.getResultList();
+    }
 }

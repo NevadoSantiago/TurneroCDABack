@@ -11,8 +11,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -88,7 +90,10 @@ public class SucursalController {
 	}
 	
 	@GetMapping("/agregar/{direccion}/{nombre}/{latitud}/{longitud}")
-	public ResponseEntity<?> addSucursales(@PathVariable("direccion") String direccion,@PathVariable("nombre") String nombre,@PathVariable("latitud") String latitud,@PathVariable("longitud") String longitud){
+	public ResponseEntity<?> addSucursales(@PathVariable("direccion") String direccion,
+											@PathVariable("nombre") String nombre,
+											@PathVariable("latitud") String latitud,
+											@PathVariable("longitud") String longitud){
 		ConfiguracionSucursal configuracion = new ConfiguracionSucursal();
 		configuracion.setCordLatitud(latitud);
 		configuracion.setCordLongitud(longitud);
@@ -106,6 +111,24 @@ public class SucursalController {
 	@GetMapping("/borrar/{idSucursal}/{idConfiguracion}")
 	public ResponseEntity<?> deleteSucursales(@PathVariable("idSucursal") Integer idSucursal,@PathVariable("idConfiguracion") Integer idConfiguracion){
 		return new ResponseEntity<>(sucursalService.deleteSucursal(idSucursal,idConfiguracion), HttpStatus.OK);
+	}
+	@GetMapping("/admin/{idSucursal}")
+	public ResponseEntity<?> getAdministradoresDeSucursal(@PathVariable("idSucursal") Integer idSucursal){
+		return new ResponseEntity<>(sucursalService.getAdminSucursal(idSucursal), HttpStatus.OK);
+	}
+	@PostMapping("/delete/{idAdmin}")
+	public ResponseEntity<?> deleteAdministradorDeSucursal(@PathVariable("idAdmin") Integer idAdmin){
+		return new ResponseEntity<>(sucursalService.deleteAdminDeSucursal(idAdmin), HttpStatus.OK);
+	}
+	//ESTADISTICAS
+	@GetMapping("/tiempoPromedio/{idEspecialidad}/{idSucursal}")
+	public ResponseEntity<?> getTiempoPromedioPorEspecialidadYSucursal(@PathVariable("idSucursal") Integer idSucursal,
+																		@PathVariable("idEspecialidad") Integer idEspecialidad){
+		return new ResponseEntity<>(sucursalService.getTiempoPromedioEspecialidadSucursal(idSucursal,idEspecialidad), HttpStatus.OK);
+	}
+	@GetMapping("/listadoAgrupado/espera/{idSucursal}")
+	public ResponseEntity<?> getListadoAgrupadoPorEspecialidad(@PathVariable("idSucursal") Integer idSucursal){
+		return new ResponseEntity<>(sucursalService.getListadoAgrupadoPorEspecialidad(idSucursal), HttpStatus.OK);
 	}
 
 	

@@ -16,6 +16,7 @@ import com.cda.turnero.dao.SucursalEspecialidadDao;
 import com.cda.turnero.dto.DetalleEmpleadoDto;
 import com.cda.turnero.dto.DetalleReservaAdminDto;
 import com.cda.turnero.dto.DetalleSucursalDto;
+import com.cda.turnero.dto.EsperaEspecialidadDto;
 import com.cda.turnero.model.ConfiguracionSucursal;
 import com.cda.turnero.model.Empleado;
 import com.cda.turnero.model.EspecialidadSucursal;
@@ -103,6 +104,28 @@ public class SucursalService {
 
 	public List<DetalleReservaAdminDto> getListadoEsperaPorSucursalId(Integer sucursalId) {
 		return reservaDaoImpl.getListadoReservasPorSucursal(sucursalId);
+	}
+
+	public List<DetalleEmpleadoDto> getAdminSucursal(Integer idSucursal) {
+		List<DetalleEmpleadoDto> admins = sucursalDaoImpl.getAdminPorSucursal(idSucursal);
+		return admins;
+	}
+
+	public Boolean deleteAdminDeSucursal(Integer idAdmin) {
+		Empleado empleado = empleadoDaoImpl.findById(idAdmin).get();
+		empleado.setSucursal(null);
+		empleadoDaoImpl.save(empleado);
+		return true;
+	}
+
+	public Double getTiempoPromedioEspecialidadSucursal(Integer idSucursal, Integer idEspecialidad) {
+		Double tiempo = sucursalDaoImpl.getTiempoPromedioByEspecialidadAndSucursal(idSucursal, idEspecialidad);
+		return tiempo;
+	}
+
+	public List<EsperaEspecialidadDto> getListadoAgrupadoPorEspecialidad(Integer idSucursal) {
+		
+		return sucursalDaoImpl.getListadoEsperaPorEspecialidad(idSucursal);
 	}
 	
 }
