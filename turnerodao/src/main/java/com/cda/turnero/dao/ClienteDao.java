@@ -9,5 +9,7 @@ import com.cda.turnero.model.Cliente;
 public interface ClienteDao extends JpaRepository<Cliente,Integer> {
 	
 	Optional<Cliente> findByMailLike(String mail);
+	
+	Boolean existsByMailLike(String mail);
 
 }

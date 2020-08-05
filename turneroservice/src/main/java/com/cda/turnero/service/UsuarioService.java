@@ -1,5 +1,6 @@
 package com.cda.turnero.service;
 
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
@@ -214,6 +215,44 @@ public class UsuarioService implements UserDetailsService {
 		}
 		
 	}
+	public void crearEmpleadoFinal(String datos) throws IllegalArgumentException {
+		JsonElement json = new JsonParser().parse(datos);
+		JsonObject jobject = json.getAsJsonObject();
+		
+		String codigo = jobject.get("codigo").getAsString();
+		String usuario = jobject.get("usuario").getAsString();
+		String contrasena = jobject.get("contrasena").getAsString();
+		String mail = jobject.get("mail").getAsString();
+		String dni = jobject.get("dni").getAsString();
+		
+		existeUsuario(usuario, contrasena, mail, dni);
+	
+		Empleado empleado = getEmpleadoByCodigo(codigo);
+		Date date = new Date();
+		empleado.setFechaAlta(date);
+		empleado.setNroDocumento(dni);
+		empleado.setMail(mail);
+		
+		Usuario usuarioEmpl = empleado.getUsuario();
+		usuarioEmpl.setPassword(contrasena);
+		usuarioEmpl.setUsuario(usuario);
+		
+		empleado.setUsuario(usuarioEmpl);
+		
+		empleadoDaoImpl.save(empleado);
+		
+	}
+	private void existeUsuario(String usuario, String contrasena, String mail, String dni) {
+		Boolean existUsername = usuarioDaoImpl.existsByUsuarioLike(usuario);
+		Empleado usuarioByMailOrDni = empleadoDaoImpl.findByMailLikeOrNroDocumentoLike(mail, dni);
+		Boolean existeCliente = clienteDaoImpl.existsByMailLike(mail);
+		
+		if(usuarioByMailOrDni != null || existeCliente) throw new IllegalArgumentException("El Mail o Dni ya estan en uso");
+		if(existUsername) throw new IllegalArgumentException("El usuario ya esta en eso");
+		if(usuario == contrasena) throw new IllegalArgumentException("El usuario y la contrasena deben ser distintos");
+		
+	}
+
 	private Empleado crearEmpleadoProvisorio(Sucursal sucursal, String nombre, String apellido, TipoUsuario tipoUsuario) {
 		Empleado empleado = new Empleado();
 		Usuario usuarioProv = new Usuario();
@@ -236,18 +275,22 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	public String validarCodigo(String codigo) throws IllegalArgumentException {
-		if(codigo.contains("EU")) {
-			
-				String[] arrayCod = codigo.split("EU");
-				Integer idEmpleado = Integer.parseInt(arrayCod[0]);
-				Integer idUsuario = Integer.parseInt(arrayCod[1]);
-				Empleado empleado = empleadoDaoImpl.getAndValidateNombreEmpleadoByIdsCodigo(idEmpleado, idUsuario);
-				
+		Empleado empleado= getEmpleadoByCodigo(codigo);				
 				if(empleado == null) throw new IllegalArgumentException();
 				
 					String nombreApellido = empleado.getNombre() + " " + empleado.getApellido();
 					return nombreApellido;				
-		}else throw new IllegalArgumentException();
+	}
+	private Empleado getEmpleadoByCodigo(String codigo) {
+		if(codigo.contains("EU")) {
+			
+			String[] arrayCod = codigo.split("EU");
+			Integer idEmpleado = Integer.parseInt(arrayCod[0]);
+			Integer idUsuario = Integer.parseInt(arrayCod[1]);
+			Empleado empleado = empleadoDaoImpl.getAndValidateNombreEmpleadoByIdsCodigo(idEmpleado, idUsuario);
+			return empleado;
+			
+	}else throw new IllegalArgumentException();
 	}
 
 }

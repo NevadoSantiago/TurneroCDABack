@@ -65,6 +65,20 @@ public class UsuarioController {
 	public ResponseEntity<?> crearEmpleado(@RequestBody String datos){
 			return new ResponseEntity<>(usuarioService.crearEmpleado(datos), HttpStatus.OK);
 	}
+	@PostMapping("/create")
+	public ResponseEntity<?> crearEmpleadoFinal(@RequestBody String datos){
+		try {
+			usuarioService.crearEmpleadoFinal(datos);
+			return new ResponseEntity<>("Se creo el usuario correctamente", HttpStatus.OK);
+		}catch(IllegalArgumentException error) {
+			System.out.println("Illegal");
+			return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
+		}catch(Exception e) {
+			System.out.println("ERROR");
+			return new ResponseEntity<>("ERROR carga usuario", HttpStatus.BAD_REQUEST);
+		}
+			
+	}
 	@GetMapping("/validarCodigo/{codigo}")
 	public ResponseEntity<?> validarCodigo(@PathVariable("codigo") String codigo){
 		try {

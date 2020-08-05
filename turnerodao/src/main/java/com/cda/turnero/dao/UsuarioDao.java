@@ -7,6 +7,6 @@ import com.cda.turnero.model.Usuario;
 public interface UsuarioDao extends JpaRepository<Usuario, Integer> {
 
 
-	
+	Boolean existsByUsuarioLike(String usuario);
 	
 }
