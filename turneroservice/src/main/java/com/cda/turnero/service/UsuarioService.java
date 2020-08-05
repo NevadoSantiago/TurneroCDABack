@@ -219,8 +219,8 @@ public class UsuarioService implements UserDetailsService {
 		JsonElement json = new JsonParser().parse(datos);
 		JsonObject jobject = json.getAsJsonObject();
 		
-		String codigo = jobject.get("codigo").getAsString();
-		String usuario = jobject.get("usuario").getAsString();
+		String codigo = jobject.get("codigo").getAsString().toUpperCase();
+		String usuario = jobject.get("usuario").getAsString().toUpperCase();
 		String contrasena = jobject.get("contrasena").getAsString();
 		String mail = jobject.get("mail").getAsString();
 		String dni = jobject.get("dni").getAsString();
@@ -246,10 +246,12 @@ public class UsuarioService implements UserDetailsService {
 		Boolean existUsername = usuarioDaoImpl.existsByUsuarioLike(usuario);
 		Empleado usuarioByMailOrDni = empleadoDaoImpl.findByMailLikeOrNroDocumentoLike(mail, dni);
 		Boolean existeCliente = clienteDaoImpl.existsByMailLike(mail);
+		usuario=usuario.toLowerCase();
+		contrasena = contrasena.toLowerCase();
 		
 		if(usuarioByMailOrDni != null || existeCliente) throw new IllegalArgumentException("El Mail o Dni ya estan en uso");
 		if(existUsername) throw new IllegalArgumentException("El usuario ya esta en eso");
-		if(usuario == contrasena) throw new IllegalArgumentException("El usuario y la contrasena deben ser distintos");
+		if(usuario.equals(contrasena)) throw new IllegalArgumentException("El usuario y la contrasena deben ser distintos");
 		
 	}
 
