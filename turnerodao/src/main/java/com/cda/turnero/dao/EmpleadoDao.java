@@ -15,4 +15,6 @@ public interface EmpleadoDao extends JpaRepository<Empleado, Integer> {
 	
 	Empleado getEmpleadoByUsername(String usuario);
 
+	Empleado getAndValidateNombreEmpleadoByIdsCodigo(Integer idEmpleado, Integer idUsuario);
+
 }

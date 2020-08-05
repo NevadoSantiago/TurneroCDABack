@@ -231,8 +231,23 @@ public class UsuarioService implements UserDetailsService {
 			
 	}
 	private String newCodigoUsuario(Empleado empleado) {
-		String codigo = "E"+empleado.getPersonaId()+"U"+empleado.getUsuario().getUsuarioId();
+		String codigo = empleado.getPersonaId()+"EU"+empleado.getUsuario().getUsuarioId();
 		return codigo;
+	}
+
+	public String validarCodigo(String codigo) throws IllegalArgumentException {
+		if(codigo.contains("EU")) {
+			
+				String[] arrayCod = codigo.split("EU");
+				Integer idEmpleado = Integer.parseInt(arrayCod[0]);
+				Integer idUsuario = Integer.parseInt(arrayCod[1]);
+				Empleado empleado = empleadoDaoImpl.getAndValidateNombreEmpleadoByIdsCodigo(idEmpleado, idUsuario);
+				
+				if(empleado == null) throw new IllegalArgumentException();
+				
+					String nombreApellido = empleado.getNombre() + " " + empleado.getApellido();
+					return nombreApellido;				
+		}else throw new IllegalArgumentException();
 	}
 
 }

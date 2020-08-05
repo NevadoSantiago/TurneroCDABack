@@ -84,5 +84,22 @@ public class EmpleadoDaoImpl {
 		Empleado empl = typedQuery.getSingleResult();		
 		return empl;
 	}
+	public Empleado getAndValidateNombreEmpleadoByIdsCodigo(Integer idEmpleado, Integer idUsuario) {
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		
+		CriteriaQuery<Empleado> query = criteriaBuilder.createQuery(Empleado.class);
+		
+		Root<Empleado> empleado = query.from(Empleado.class);
+		
+		query.select(empleado);
+		query.where(criteriaBuilder.and(
+				criteriaBuilder.equal(empleado.join("usuario").get("usuarioId"),idUsuario),
+				criteriaBuilder.equal(empleado.get("personaId"),idEmpleado),
+				criteriaBuilder.isNull(empleado.get("fechaAlta"))));
+		
+		TypedQuery<Empleado> typedQuery = entityManager.createQuery(query);
+		Empleado empl = typedQuery.getSingleResult();		
+		return empl;
+	}
 	
 }

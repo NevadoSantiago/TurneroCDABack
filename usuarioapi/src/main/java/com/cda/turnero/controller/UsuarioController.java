@@ -65,4 +65,15 @@ public class UsuarioController {
 	public ResponseEntity<?> crearEmpleado(@RequestBody String datos){
 			return new ResponseEntity<>(usuarioService.crearEmpleado(datos), HttpStatus.OK);
 	}
+	@GetMapping("/validarCodigo/{codigo}")
+	public ResponseEntity<?> validarCodigo(@PathVariable("codigo") String codigo){
+		try {
+			String nombreApellido = usuarioService.validarCodigo(codigo);
+			return new ResponseEntity<>(nombreApellido, HttpStatus.OK);
+		}catch(Exception e) {
+			System.out.println("ERROR CODIGO");
+			return new ResponseEntity<>("CODIGO INVALIDO", HttpStatus.FORBIDDEN);
+		}
+			
+	}
 }
