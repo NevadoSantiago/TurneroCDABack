@@ -42,14 +42,14 @@ public class ReservaController {
 			@PathVariable("idUsuario") Integer idUsuario) {
 		return new ResponseEntity<>(reservaService.crearReserva(descReserva, idUsuario), HttpStatus.OK);
 	}
-	@PostMapping("/crear/entrada/")
+	@PostMapping("/crearReserva/entrada")
 	public ResponseEntity<?> crearReservaEntrada(@RequestBody String descReserva) {
-		try {
+//		try {
 			boolean realizado = reservaService.crearReservaEnEntrada(descReserva);
 			return new ResponseEntity<>(realizado, HttpStatus.OK);
-		}catch(Exception e) {
-			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
-		}
+//		}catch(Exception e) {
+//			return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+//		}
 		
 	}
 	@PostMapping("/cancelar/{idReserva}")

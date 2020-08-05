@@ -69,5 +69,20 @@ public class EmpleadoDaoImpl {
 		List<Empleado> empl = typedQuery.getResultList();		
 		return empl;
 	}
+	public Empleado getEmpleadoByUsername(String usuario){
+			
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		
+		CriteriaQuery<Empleado> query = criteriaBuilder.createQuery(Empleado.class);
+		
+		Root<Empleado> empleado = query.from(Empleado.class);
+		
+		query.select(empleado)
+		.where(criteriaBuilder.equal(empleado.join("usuario").get("usuario"),usuario));
+		
+		TypedQuery<Empleado> typedQuery = entityManager.createQuery(query);
+		Empleado empl = typedQuery.getSingleResult();		
+		return empl;
+	}
 	
 }

@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,6 +54,7 @@ public class SucursalController {
 		return new ResponseEntity<>(empleados, HttpStatus.OK);
 	}
 	@GetMapping("/get/espera/{sucursalId}")
+	@PreAuthorize("hasAuthority('ADMIN_SUCURSAL') or hasAuthority('RECEPCION')")
 	public ResponseEntity<?> getEsperaPorSucursal(@PathVariable("sucursalId") Integer sucursalId){
 													
 		Long cantidad = sucursalService.getCantidadReservasPorSucursal(sucursalId);
@@ -122,6 +125,7 @@ public class SucursalController {
 	}
 	//ESTADISTICAS
 	@GetMapping("/tiempoPromedio/{idEspecialidad}/{idSucursal}")
+	@PreAuthorize("hasAuthority('ADMIN_GENERAL')")
 	public ResponseEntity<?> getTiempoPromedioPorEspecialidadYSucursal(@PathVariable("idSucursal") Integer idSucursal,
 																		@PathVariable("idEspecialidad") Integer idEspecialidad){
 		return new ResponseEntity<>(sucursalService.getTiempoPromedioEspecialidadSucursal(idSucursal,idEspecialidad), HttpStatus.OK);

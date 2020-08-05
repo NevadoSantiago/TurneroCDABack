@@ -7,8 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
-public class TipoUsuario {
+public class TipoUsuario implements GrantedAuthority {
 
 	@Id 
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +25,10 @@ public class TipoUsuario {
 	public Integer getTipoId() {
 		return tipoId;
 	}
+    @Override
+    public String getAuthority() {
+        return detalle;
+    }
 
 	public void setTipoId(Integer tipoId) {
 		this.tipoId = tipoId;

@@ -53,7 +53,7 @@ public class SucursalService {
 		return sucursales;
 	}
 	public List<Sucursal> getAllSucursales() {	
-		return sucursalDaoImpl.findAll();
+		return sucursalDaoImpl.findAllByFechaBajaIsNull();
 	}
 	public Sucursal getSucursalById(Integer idSucursal) {
 		return sucursalDaoImpl.findById(idSucursal).get();
@@ -119,8 +119,8 @@ public class SucursalService {
 	}
 
 	public Double getTiempoPromedioEspecialidadSucursal(Integer idSucursal, Integer idEspecialidad) {
-		Double tiempo = sucursalDaoImpl.getTiempoPromedioByEspecialidadAndSucursal(idSucursal, idEspecialidad);
-		return tiempo;
+		Double tiempoEnSegundos = sucursalDaoImpl.getTiempoPromedioByEspecialidadAndSucursal(idSucursal, idEspecialidad);
+		return tiempoEnSegundos;
 	}
 
 	public List<EsperaEspecialidadDto> getListadoAgrupadoPorEspecialidad(Integer idSucursal) {

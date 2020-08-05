@@ -1,13 +1,21 @@
 package com.cda.turnero.service;
 
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+import javax.security.auth.login.CredentialException;
+
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 
 import com.cda.turnero.dao.ClienteDao;
 import com.cda.turnero.dao.EmpleadoDao;
@@ -26,7 +34,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 @Service
-public class UsuarioService {
+public class UsuarioService implements UserDetailsService {
 	
 	@Autowired
 	ClienteDao clienteDaoImpl;
@@ -41,6 +49,16 @@ public class UsuarioService {
 	@Autowired
 	TipoUsuarioDao tipoUsuarioDaoImpl;
 	
+	@Override
+	public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+		Empleado empleado = empleadoDaoImpl.getEmpleadoByUsername(s);
+		String usuario = empleado.getUsuario().getUsuario();
+		String pass = empleado.getUsuario().getPassword();
+		List<TipoUsuario> listRol =	new ArrayList<>();
+		listRol.add(empleado.getUsuario().getTipoUsuario());
+		return new User(usuario,pass,listRol);
+	}
+	
 	public ClienteLogueadoDto ingresoCliente(String mail) {
 		Optional<Cliente> cliente = clienteDaoImpl.findByMailLike(mail);
 		if(cliente.isEmpty()) {
@@ -52,7 +70,7 @@ public class UsuarioService {
 			return clienteLogueadoMapper(cliente.get(), reserva);
 		}
 	}
-	public UsuarioLogueadoDto ingresoUsuario(String autenticacion){
+	public UsuarioLogueadoDto ingresoUsuario(String autenticacion) throws CredentialException{
 			JsonElement json = new JsonParser().parse(autenticacion);
 			JsonObject jobject = json.getAsJsonObject();
 			
@@ -64,10 +82,21 @@ public class UsuarioService {
 		return empleadoDaoImpl.getEmpleadoByUsuarioYContrasena(usuario, contrasena);
 		
 	}
-	private UsuarioLogueadoDto logIn(String usuario, String contrasena) {
+	public UserDetails getUserDetails (String autenticacion) {
+		JsonElement json = new JsonParser().parse(autenticacion);
+		JsonObject jobject = json.getAsJsonObject();
+		
+		String usuario = jobject.get("usuario").getAsString();
+		String pass = jobject.get("contrasena").getAsString();
+		Empleado empleado = getUsuarioByUsuarioAndContrasena(usuario, pass);
+		List<TipoUsuario> listRol = new ArrayList<>();
+		listRol.add(empleado.getUsuario().getTipoUsuario());
+		return new User(usuario,pass,listRol);
+	}
+	private UsuarioLogueadoDto logIn(String usuario, String contrasena) throws CredentialException {
 		Empleado empleado = getUsuarioByUsuarioAndContrasena(usuario, contrasena);
 		
-		if(empleado == null)	return null;
+		if(empleado == null) throw new CredentialException() ;
 		
 		String tipoUsuario = empleado.getUsuario().getTipoUsuario().getDetalle();
 		String nombre = empleado.getNombre();

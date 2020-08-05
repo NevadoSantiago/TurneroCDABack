@@ -10,10 +10,12 @@ public class UsuarioLogueadoDto {
 	private String tipoUsuario;
 	private Integer idUsuario;
 	private Sucursal sucursal;
+	private String token;
 	
 	public UsuarioLogueadoDto() {
 		
 	}
+	
 	
 	
 	public UsuarioLogueadoDto(String usuario, String tipoUsuario) {
@@ -49,6 +51,19 @@ public class UsuarioLogueadoDto {
 	public void setApellido(String apellido) {
 		this.apellido = apellido;
 	}
+	
+
+
+	public String getToken() {
+		return token;
+	}
+
+
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 
 
 	public String getUsuario() {
