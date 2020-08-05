@@ -61,4 +61,8 @@ public class UsuarioController {
 	public ResponseEntity<?> editarUsuario(@RequestBody String datos){
 			return new ResponseEntity<>(usuarioService.editarUsuario(datos), HttpStatus.OK);
 	}
+	@PostMapping("/create/empleado")
+	public ResponseEntity<?> crearEmpleado(@RequestBody String datos){
+			return new ResponseEntity<>(usuarioService.crearEmpleado(datos), HttpStatus.OK);
+	}
 }

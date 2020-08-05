@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import com.cda.turnero.dao.ClienteDao;
 import com.cda.turnero.dao.EmpleadoDao;
 import com.cda.turnero.dao.TipoUsuarioDao;
+import com.cda.turnero.dao.UsuarioDao;
 import com.cda.turnero.dto.ClienteLogueadoDto;
 import com.cda.turnero.dto.UsuarioLogueadoDto;
 import com.cda.turnero.model.Cliente;
@@ -38,6 +39,8 @@ public class UsuarioService implements UserDetailsService {
 	
 	@Autowired
 	ClienteDao clienteDaoImpl;
+	@Autowired
+	UsuarioDao usuarioDaoImpl;
 	@Autowired
 	ReservaService reservaService;
 	@Autowired
@@ -186,6 +189,50 @@ public class UsuarioService implements UserDetailsService {
 		}
 		
 		
+	}
+
+	public String crearEmpleado(String datos) {
+		JsonElement json = new JsonParser().parse(datos);
+		JsonObject jobject = json.getAsJsonObject();
+		
+		Integer idSucursal = jobject.get("idSucursal").getAsInt();
+		String nombre = jobject.get("nombre").getAsString();
+		String apellido = jobject.get("apellido").getAsString();
+		Integer idRol = jobject.get("idRol").getAsInt();
+		
+		Sucursal sucursal = sucursalService.getSucursalById(idSucursal);
+		TipoUsuario tipoUsuario = tipoUsuarioDaoImpl.findById(idRol).get();
+		
+		Empleado empleado = crearEmpleadoProvisorio(sucursal, nombre, apellido, tipoUsuario);
+		try {
+			empleado = empleadoDaoImpl.save(empleado);
+			String codigoUsuario = newCodigoUsuario(empleado);
+			return codigoUsuario;
+		}catch(Exception e) {
+			System.out.println("Error en la carga de usuario");
+			return null;
+		}
+		
+	}
+	private Empleado crearEmpleadoProvisorio(Sucursal sucursal, String nombre, String apellido, TipoUsuario tipoUsuario) {
+		Empleado empleado = new Empleado();
+		Usuario usuarioProv = new Usuario();
+		
+		usuarioProv.setTipoUsuario(tipoUsuario);
+		usuarioProv = usuarioDaoImpl.save(usuarioProv);
+	
+		empleado.setApellido(apellido);
+		empleado.setSucursal(sucursal);
+		empleado.setNombre(nombre);
+		empleado.setApellido(apellido);
+		empleado.setUsuario(usuarioProv);
+		
+		return empleado;
+			
+	}
+	private String newCodigoUsuario(Empleado empleado) {
+		String codigo = "E"+empleado.getPersonaId()+"U"+empleado.getUsuario().getUsuarioId();
+		return codigo;
 	}
 
 }
