@@ -313,6 +313,7 @@ public class UsuarioService implements UserDetailsService {
 	}
 
 	private Empleado getEmpleadoByCodigo(String codigo) {
+
 		if (codigo.contains("EU")) {
 
 			String[] arrayCod = codigo.split("EU");
@@ -323,6 +324,22 @@ public class UsuarioService implements UserDetailsService {
 
 		} else
 			throw new IllegalArgumentException();
+	}
+
+	
+	public UsuarioLogueadoDto logueoByToken(String token) {
+		JsonElement json = new JsonParser().parse(token);
+		JsonObject jobject = json.getAsJsonObject();
+		token = jobject.get("token").getAsString();
+		
+		String usuario = jwtUtil.getUsernameFromToken(token);
+		UserDetails userDetails = loadUserByUsername(usuario);
+		if(jwtUtil.validateToken(token, userDetails)) {
+			Empleado empleado =  empleadoDaoImpl.getEmpleadoByUsername(usuario);
+			return usuarioLogueadoMapper(empleado);
+		}else {
+			throw new IllegalArgumentException("Token invalido");
+		}
 	}
 
 }

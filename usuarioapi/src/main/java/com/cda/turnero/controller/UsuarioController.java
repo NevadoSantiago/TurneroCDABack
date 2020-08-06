@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,6 +42,15 @@ public class UsuarioController {
 	public ResponseEntity<?> ingresoDeUsuario(@RequestBody String autenticacion) {
 		try {
 			UsuarioLogueadoDto uLogueado = usuarioService.ingresoUsuario(autenticacion);
+			return new ResponseEntity<>(uLogueado, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
+		}
+	}
+	@PostMapping("/auth/token")
+	public ResponseEntity<?> ingresoDeUsuarioByToken(@RequestBody String token) {
+		try {
+			UsuarioLogueadoDto uLogueado = usuarioService.logueoByToken(token);
 			return new ResponseEntity<>(uLogueado, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
