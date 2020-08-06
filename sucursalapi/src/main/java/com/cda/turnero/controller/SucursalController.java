@@ -91,7 +91,7 @@ public class SucursalController {
 		
 		return new ResponseEntity<>(SR, HttpStatus.OK);
 	}
-	
+	@PreAuthorize("hasAuthority('ADMIN_GENERAL')")
 	@GetMapping("/agregar/{direccion}/{nombre}/{latitud}/{longitud}")
 	public ResponseEntity<?> addSucursales(@PathVariable("direccion") String direccion,
 											@PathVariable("nombre") String nombre,
@@ -112,14 +112,17 @@ public class SucursalController {
 	
 	
 	@GetMapping("/borrar/{idSucursal}/{idConfiguracion}")
+	@PreAuthorize("hasAuthority('ADMIN_GENERAL') or hasAuthority('ADMIN_SUCURSAL')")
 	public ResponseEntity<?> deleteSucursales(@PathVariable("idSucursal") Integer idSucursal,@PathVariable("idConfiguracion") Integer idConfiguracion){
 		return new ResponseEntity<>(sucursalService.deleteSucursal(idSucursal,idConfiguracion), HttpStatus.OK);
 	}
 	@GetMapping("/admin/{idSucursal}")
+	@PreAuthorize("hasAuthority('ADMIN_GENERAL') or hasAuthority('ADMIN_SUCURSAL')")
 	public ResponseEntity<?> getAdministradoresDeSucursal(@PathVariable("idSucursal") Integer idSucursal){
 		return new ResponseEntity<>(sucursalService.getAdminSucursal(idSucursal), HttpStatus.OK);
 	}
 	@PostMapping("/delete/{idAdmin}")
+	@PreAuthorize("hasAuthority('ADMIN_GENERAL') or hasAuthority('ADMIN_SUCURSAL')")
 	public ResponseEntity<?> deleteAdministradorDeSucursal(@PathVariable("idAdmin") Integer idAdmin){
 		return new ResponseEntity<>(sucursalService.deleteAdminDeSucursal(idAdmin), HttpStatus.OK);
 	}

@@ -41,9 +41,6 @@ public class UsuarioController {
 	public ResponseEntity<?> ingresoDeUsuario(@RequestBody String autenticacion) {
 		try {
 			UsuarioLogueadoDto uLogueado = usuarioService.ingresoUsuario(autenticacion);
-			UserDetails userDetails = usuarioService.getUserDetails(autenticacion);
-			String token = jwtUtil.generateToken(userDetails);
-			uLogueado.setToken(token);
 			return new ResponseEntity<>(uLogueado, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
@@ -68,8 +65,8 @@ public class UsuarioController {
 	@PostMapping("/create")
 	public ResponseEntity<?> crearEmpleadoFinal(@RequestBody String datos){
 		try {
-			usuarioService.crearEmpleadoFinal(datos);
-			return new ResponseEntity<>("Se creo el usuario correctamente", HttpStatus.OK);
+			UsuarioLogueadoDto uLogueado = usuarioService.crearEmpleadoFinal(datos);
+			return new ResponseEntity<>(uLogueado, HttpStatus.OK);
 		}catch(IllegalArgumentException error) {
 			System.out.println("Illegal");
 			return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
