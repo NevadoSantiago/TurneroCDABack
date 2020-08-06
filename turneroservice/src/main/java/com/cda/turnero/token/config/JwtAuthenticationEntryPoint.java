@@ -1,4 +1,4 @@
-package com.cda.turnero.config;
+package com.cda.turnero.token.config;
 
 import java.io.IOException;
 import java.io.Serializable;

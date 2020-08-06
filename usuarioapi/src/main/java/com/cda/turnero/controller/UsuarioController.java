@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cda.turnero.dto.UsuarioLogueadoDto;
 import com.cda.turnero.service.UsuarioService;
-import com.cda.turnero.utils.JwtTokenUtil;
+import com.cda.turnero.token.utils.JwtTokenUtil;
 
 
 @CrossOrigin(origins = "*")

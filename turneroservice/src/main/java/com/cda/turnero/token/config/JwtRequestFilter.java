@@ -1,4 +1,4 @@
-package com.cda.turnero.config;
+package com.cda.turnero.token.config;
 
 import java.io.IOException;
 
@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.cda.turnero.dto.UsuarioLogueadoDto;
 import com.cda.turnero.service.UsuarioService;
-import com.cda.turnero.utils.JwtTokenUtil;
+import com.cda.turnero.token.utils.JwtTokenUtil;
+
 import io.jsonwebtoken.ExpiredJwtException;
 
 @Component

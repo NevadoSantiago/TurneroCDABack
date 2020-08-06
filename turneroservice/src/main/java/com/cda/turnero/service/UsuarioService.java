@@ -30,7 +30,7 @@ import com.cda.turnero.model.Reserva;
 import com.cda.turnero.model.Sucursal;
 import com.cda.turnero.model.TipoUsuario;
 import com.cda.turnero.model.Usuario;
-import com.cda.turnero.utils.JwtTokenUtil;
+import com.cda.turnero.token.utils.JwtTokenUtil;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

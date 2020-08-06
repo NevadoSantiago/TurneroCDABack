@@ -1,4 +1,4 @@
-package com.cda.turnero.config;
+package com.cda.turnero.token.config;
 
 import java.util.ArrayList;
 import java.util.List;

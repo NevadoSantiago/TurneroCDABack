@@ -1,4 +1,4 @@
-package com.cda.turnero.utils;
+package com.cda.turnero.token.utils;
 
 
 import java.io.Serializable;
