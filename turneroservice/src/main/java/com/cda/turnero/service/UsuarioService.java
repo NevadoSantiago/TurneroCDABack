@@ -194,7 +194,6 @@ public class UsuarioService implements UserDetailsService {
 		Integer idEmpleado = jobject.get("idEmpleado").getAsInt();
 		String nombre = jobject.get("nombre").getAsString();
 		String apellido = jobject.get("apellido").getAsString();
-		String mail = jobject.get("mail").getAsString();
 		Integer idRol = jobject.get("rol").getAsInt();
 
 		Optional<Empleado> empleado = empleadoDaoImpl.findById(idEmpleado);
@@ -204,7 +203,11 @@ public class UsuarioService implements UserDetailsService {
 			Empleado emp = empleado.get();
 			emp.setNombre(nombre);
 			emp.setApellido(apellido);
-			emp.setMail(mail);
+			
+			if(jobject.get("mail") != null) {
+				emp.setMail(jobject.get("mail").getAsString());
+			}
+			
 			Usuario usuario = emp.getUsuario();
 			usuario.setTipoUsuario(tipoUsuarioDaoImpl.findById(idRol).get());
 			emp.setUsuario(usuario);
