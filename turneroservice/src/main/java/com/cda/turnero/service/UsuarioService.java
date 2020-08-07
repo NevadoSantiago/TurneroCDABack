@@ -22,6 +22,7 @@ import com.cda.turnero.dao.EmpleadoDao;
 import com.cda.turnero.dao.TipoUsuarioDao;
 import com.cda.turnero.dao.UsuarioDao;
 import com.cda.turnero.dto.ClienteLogueadoDto;
+import com.cda.turnero.dto.EmpleadoNoRegistradoDto;
 import com.cda.turnero.dto.UsuarioLogueadoDto;
 import com.cda.turnero.model.Cliente;
 import com.cda.turnero.model.Empleado;
@@ -340,6 +341,17 @@ public class UsuarioService implements UserDetailsService {
 		}else {
 			throw new IllegalArgumentException("Token invalido");
 		}
+	}
+
+	public List<EmpleadoNoRegistradoDto> getListadoEmpleadosNoRegistrados() {
+		List<Empleado> empleados = empleadoDaoImpl.findByFechaAltaIsNull();
+		List<EmpleadoNoRegistradoDto> empleadosNR = new ArrayList<>();
+		for(Empleado e : empleados) {
+			String codigo = newCodigoUsuario(e);
+			EmpleadoNoRegistradoDto er = new EmpleadoNoRegistradoDto(e, codigo);
+			empleadosNR.add(er);
+		}
+		return empleadosNR;
 	}
 
 }

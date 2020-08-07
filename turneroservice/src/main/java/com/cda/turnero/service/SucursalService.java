@@ -70,10 +70,11 @@ public class SucursalService {
 		return sucursalDaoImpl.save(sucursal);
 	}
 	
-	public Boolean deleteSucursal(Integer idSucursal, Integer idConfiguracion) {
+	public Boolean deleteSucursal(Integer idSucursal) {
 		try {
-			sucursalDaoImpl.deleteById(idSucursal);
-			configuracionDao.deleteById(idConfiguracion);
+			Sucursal sucursal = sucursalDaoImpl.findById(idSucursal).get();
+			sucursal.setFechaBaja(new Date());
+			sucursalDaoImpl.save(sucursal);
 			return true;
 		}catch(Exception e) {
 			e.printStackTrace();

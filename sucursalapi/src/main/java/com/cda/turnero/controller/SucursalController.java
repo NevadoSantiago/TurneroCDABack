@@ -111,10 +111,10 @@ public class SucursalController {
 	}
 	
 	
-	@GetMapping("/borrar/{idSucursal}/{idConfiguracion}")
+	@GetMapping("/borrar/{idSucursal}")
 	@PreAuthorize("hasAuthority('ADMIN_GENERAL') or hasAuthority('ADMIN_SUCURSAL')")
-	public ResponseEntity<?> deleteSucursales(@PathVariable("idSucursal") Integer idSucursal,@PathVariable("idConfiguracion") Integer idConfiguracion){
-		return new ResponseEntity<>(sucursalService.deleteSucursal(idSucursal,idConfiguracion), HttpStatus.OK);
+	public ResponseEntity<?> deleteSucursal(@PathVariable("idSucursal") Integer idSucursal){
+		return new ResponseEntity<>(sucursalService.deleteSucursal(idSucursal), HttpStatus.OK);
 	}
 	@GetMapping("/admin/{idSucursal}")
 	@PreAuthorize("hasAuthority('ADMIN_GENERAL') or hasAuthority('ADMIN_SUCURSAL')")

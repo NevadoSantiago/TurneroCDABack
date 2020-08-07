@@ -1,6 +1,6 @@
 package com.cda.turnero.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -76,8 +76,8 @@ public class Sucursal {
 		return fechaBaja;
 	}
 
-	public void setFechaBaja(Date fechaBaja) {
-		this.fechaBaja = fechaBaja;
+	public void setFechaBaja(Date date) {
+		this.fechaBaja = date;
 	}
 
 	public ConfiguracionSucursal getConfiguracion() {

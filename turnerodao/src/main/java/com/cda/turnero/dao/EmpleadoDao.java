@@ -20,4 +20,6 @@ public interface EmpleadoDao extends JpaRepository<Empleado, Integer> {
 
 	Empleado getAndValidateNombreEmpleadoByIdsCodigo(Integer idEmpleado, Integer idUsuario);
 
+	List<Empleado> findByFechaAltaIsNull();
+
 }

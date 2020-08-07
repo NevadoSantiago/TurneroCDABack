@@ -1,6 +1,8 @@
 package com.cda.turnero.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cda.turnero.dto.EmpleadoNoRegistradoDto;
 import com.cda.turnero.dto.UsuarioLogueadoDto;
 import com.cda.turnero.service.UsuarioService;
 import com.cda.turnero.token.utils.JwtTokenUtil;
@@ -53,7 +56,7 @@ public class UsuarioController {
 			UsuarioLogueadoDto uLogueado = usuarioService.logueoByToken(token);
 			return new ResponseEntity<>(uLogueado, HttpStatus.OK);
 		}catch(Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);	
+			return new ResponseEntity<>("Token invalido", HttpStatus.NOT_FOUND);	
 		}
 	}
 	@PostMapping("/eliminar/{idUsuario}")
@@ -95,6 +98,16 @@ public class UsuarioController {
 			System.out.println("ERROR CODIGO");
 			return new ResponseEntity<>("CODIGO INVALIDO", HttpStatus.FORBIDDEN);
 		}
+			
+	}
+	@GetMapping("/empleadosNoRegistrados")
+	public ResponseEntity<?> getListadoEmpleadosNoRegistrados(){
+//		try {
+			List<EmpleadoNoRegistradoDto> empleadosNR = usuarioService.getListadoEmpleadosNoRegistrados();
+			return new ResponseEntity<>(empleadosNR, HttpStatus.OK);
+//		}catch(Exception e) {
+//			return new ResponseEntity<>(new ArrayList<EmpleadoNoRegistradoDto>(), HttpStatus.FORBIDDEN);
+//		}
 			
 	}
 }
