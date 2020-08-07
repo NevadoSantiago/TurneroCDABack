@@ -170,11 +170,14 @@ public class UsuarioService implements UserDetailsService {
 		Optional<Empleado> empleado = empleadoDaoImpl.findById(usuarioId);
 		if (empleado.isEmpty()) {
 			return false;
-		} else {
+		} else if(empleado.get().getFechaAlta()!=null) {
 			Date dia = java.sql.Date.valueOf(LocalDate.now().toString("yyyy-MM-dd"));
 			Empleado emp = empleado.get();
 			emp.setFechaBaja(dia);
 			empleadoDaoImpl.save(emp);
+			return true;
+		}else {
+			empleadoDaoImpl.deleteById(empleado.get().getPersonaId());
 			return true;
 		}
 	}

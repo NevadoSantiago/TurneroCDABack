@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -102,12 +103,22 @@ public class UsuarioController {
 	}
 	@GetMapping("/empleadosNoRegistrados")
 	public ResponseEntity<?> getListadoEmpleadosNoRegistrados(){
-//		try {
+		try {
 			List<EmpleadoNoRegistradoDto> empleadosNR = usuarioService.getListadoEmpleadosNoRegistrados();
 			return new ResponseEntity<>(empleadosNR, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(new ArrayList<EmpleadoNoRegistradoDto>(), HttpStatus.FORBIDDEN);
+		}
+			
+	}
+//	@DeleteMapping("delete/empleadoNoRegistrado/{idEmpleado}")
+//	public ResponseEntity<?> deteleEmpleadoNoRegistrado(@PathVariable("idEmpleado") Integer idEmpleado){
+//		try {
+//			boolean eliminado = usuarioService.deleteEmpleadoNoRegistrado(idEmpleado);
+//			return new ResponseEntity<>(eliminado, HttpStatus.OK);
 //		}catch(Exception e) {
 //			return new ResponseEntity<>(new ArrayList<EmpleadoNoRegistradoDto>(), HttpStatus.FORBIDDEN);
 //		}
-			
-	}
+//			
+//	}
 }
